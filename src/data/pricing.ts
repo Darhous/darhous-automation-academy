@@ -1,0 +1,30 @@
+export const pricingPlans = [
+  {
+    id: "free",
+    title: "مجاني",
+    price: "0",
+    description: "ابدأ التعرف على عالم الأتمتة دون التزام.",
+    features: ["أساسيات الأتمتة", "قوالب محدودة", "دروس مجانية"],
+    cta: "ابدأ الآن",
+    href: "/auth/register",
+  },
+  {
+    id: "pro-learner",
+    title: "متعلم محترف",
+    price: "499",
+    description: "وصول شامل للمسارات، المعامل، والشهادات العملية.",
+    features: ["كل المسارات", "كل القوالب", "شهادات", "مشاريع عملية"],
+    cta: "استكشف الخطة",
+    href: "/dashboard",
+    featured: true,
+  },
+  {
+    id: "custom-service",
+    title: "خدمة مخصصة",
+    price: "حسب الطلب",
+    description: "تنفيذ workflow كامل واستشارة وربط أدوات العمل.",
+    features: ["تنفيذ workflow كامل", "استشارة", "دعم وربط أدوات"],
+    cta: "اطلب خدمة",
+    href: "/services",
+  },
+];
