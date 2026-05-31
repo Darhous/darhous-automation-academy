@@ -40,21 +40,21 @@ export function AdminView() {
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <GlassCard className="space-y-5">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="font-heading text-2xl font-semibold text-white">Portal analytics</h2>
-            <StatusBadge tone="cyan">frontend admin foundation</StatusBadge>
+            <h2 className="font-heading text-2xl font-semibold text-white">تحليلات البوابة</h2>
+            <StatusBadge tone="cyan">أساس لوحة الإدارة</StatusBadge>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
-            <Panel title="Manage users" value="مستعد للربط مع SSO" />
-            <Panel title="Manage courses" value={`${automationPaths.length} learning paths`} />
-            <Panel title="Manage templates" value={`${automationTemplates.length} templates`} />
-            <Panel title="Manage labs" value={`${automationLabs.length} labs`} />
-            <Panel title="Manage tools directory" value={`${automationTools.length} tools`} />
-            <Panel title="Coming soon controls" value="ready for CMS switch later" />
+            <Panel title="إدارة المستخدمين" value="مستعد للربط مع SSO" />
+            <Panel title="إدارة المسارات" value={`${automationPaths.length} مسارات تعليمية`} />
+            <Panel title="إدارة القوالب" value={`${automationTemplates.length} قالبًا`} />
+            <Panel title="إدارة المختبرات" value={`${automationLabs.length} مختبرات`} />
+            <Panel title="دليل الأدوات" value={`${automationTools.length} أدوات`} />
+            <Panel title="عناصر قادمة" value="جاهزة للربط مع CMS لاحقًا" />
           </div>
         </GlassCard>
 
         <GlassCard className="space-y-5">
-          <h2 className="font-heading text-2xl font-semibold text-white">Review generated workflows</h2>
+          <h2 className="font-heading text-2xl font-semibold text-white">مراجعة الـ workflows المولدة</h2>
           {workflows.length ? (
             workflows.map((workflow) => (
               <div key={workflow.id} className="rounded-[24px] border border-white/10 bg-white/5 p-4">
@@ -73,7 +73,7 @@ export function AdminView() {
       </div>
 
       <GlassCard className="space-y-5">
-        <h2 className="font-heading text-2xl font-semibold text-white">Service requests inbox</h2>
+        <h2 className="font-heading text-2xl font-semibold text-white">صندوق طلبات الخدمة</h2>
         {requests.length ? (
           <div className="grid gap-4 md:grid-cols-2">
             {requests.map((request) => (

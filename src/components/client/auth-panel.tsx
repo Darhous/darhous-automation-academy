@@ -19,7 +19,7 @@ export function AuthPanel({ mode }: { mode: "login" | "register" }) {
         <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
           <GlassCard className="space-y-5">
             <BrandLogo />
-            <StatusBadge tone="violet">Future SSO placeholder</StatusBadge>
+            <StatusBadge tone="violet">بوابة تمهيدية للحساب الموحد</StatusBadge>
             <h1 className="font-heading text-4xl font-bold text-white">{title}</h1>
             <p className="text-base leading-8 text-[var(--text-muted)]">{description}</p>
             <div className="grid gap-3">

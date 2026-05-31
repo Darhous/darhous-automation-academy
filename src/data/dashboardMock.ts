@@ -8,10 +8,10 @@ export const dashboardStats: DashboardStat[] = [
 ];
 
 export const adminMetrics: AdminMetric[] = [
-  { id: "users", label: "مستخدمون نشطون", value: "1,248", hint: "Frontend foundation metric" },
-  { id: "templates", label: "قوالب منشورة", value: "42", hint: "جاهزة للإدارة لاحقًا" },
-  { id: "labs", label: "مختبرات فعالة", value: "8", hint: "مربوطة بالبيانات الثابتة" },
-  { id: "requests", label: "طلبات خدمة", value: "Live", hint: "تُقرأ من localStorage في هذا الإصدار" },
+  { id: "users", label: "مستخدمون نشطون", value: "1,248", hint: "مؤشر واجهي تمهيدي لحين ربط البيانات الحقيقية" },
+  { id: "templates", label: "قوالب منشورة", value: "42", hint: "جاهزة للإدارة والتصنيف لاحقًا" },
+  { id: "labs", label: "مختبرات فعالة", value: "8", hint: "مربوطة حاليًا بطبقة البيانات الثابتة" },
+  { id: "requests", label: "طلبات خدمة", value: "مباشر", hint: "تُقرأ من localStorage في هذا الإصدار" },
 ];
 
 export const workflowNodesPreview: WorkflowNode[] = [

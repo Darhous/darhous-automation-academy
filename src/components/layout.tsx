@@ -157,7 +157,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.id}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border transition duration-200 hover:-translate-y-1 hover:scale-110"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border transition duration-200 hover:-translate-y-1 hover:scale-110"
                   style={{
                     color: social.color,
                     background: social.bg,

@@ -47,28 +47,28 @@ export function DashboardView() {
         <GlassCard className="space-y-5">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <StatusBadge tone="cyan">Demo user profile</StatusBadge>
+              <StatusBadge tone="cyan">ملف مستخدم تجريبي</StatusBadge>
               <h2 className="mt-3 font-heading text-2xl font-semibold text-white">أحمد - متعلم ومسؤول أتمتة</h2>
               <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
                 نسخة dashboard الحالية تربط بين المسارات، القوالب المحفوظة، workflows المولدة، وطلبات الخدمة عبر localStorage.
               </p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-white/5 p-4 text-sm text-[var(--text-muted)]">
-              <div>Active plan</div>
+              <div>الخطة النشطة</div>
               <div className="mt-2 font-display text-lg font-bold text-white">متعلم محترف</div>
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <InfoBox title="المسار النشط" value={nextPath.title} hint={nextPath.englishLabel} />
-            <InfoBox title="الخطوة التالية" value="AI Email Summarizer Lab" hint="موصى به حسب اهتمامك الحالي" />
-            <InfoBox title="الشهادات" value="Placeholder" hint="سيتم ربطها بمنظومة Darhous لاحقًا" />
-            <InfoBox title="AI Suggestions" value="3 اقتراحات" hint="based on your saved workflows" />
+            <InfoBox title="الخطوة التالية" value="مختبر AI Email Summarizer" hint="موصى به حسب اهتمامك الحالي" />
+            <InfoBox title="الشهادات" value="قريبًا داخل الحساب الموحد" hint="سيتم ربطها بمنظومة Darhous لاحقًا" />
+            <InfoBox title="اقتراحات الذكاء الاصطناعي" value="3 اقتراحات" hint="مبنية على workflows التي حفظتها" />
           </div>
         </GlassCard>
 
         <GlassCard className="space-y-4">
-          <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Quick links</div>
+          <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">روابط سريعة</div>
           <div className="grid gap-3">
             {[
               { href: "/templates", label: "استكشف القوالب" },
@@ -82,7 +82,7 @@ export function DashboardView() {
             ))}
           </div>
           <div className="rounded-[24px] border border-[rgba(244,198,114,0.24)] bg-[rgba(244,198,114,0.08)] p-4 text-sm leading-7 text-[var(--gold)]">
-            Recommended next automation: اربط تلخيص البريد اليومي بلوحة تنفيذ أسبوعية داخل Notion.
+            الأتمتة المقترحة التالية: اربط تلخيص البريد اليومي بلوحة تنفيذ أسبوعية داخل Notion.
           </div>
         </GlassCard>
       </div>
@@ -90,8 +90,8 @@ export function DashboardView() {
       <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <GlassCard className="space-y-5">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-heading text-2xl font-semibold text-white">Generated workflows</h3>
-            <StatusBadge tone="violet">{workflows.length} saved</StatusBadge>
+            <h3 className="font-heading text-2xl font-semibold text-white">الـ workflows المولدة</h3>
+            <StatusBadge tone="violet">{workflows.length} محفوظ</StatusBadge>
           </div>
           {workflows.length ? (
             <div className="space-y-3">
@@ -123,8 +123,8 @@ export function DashboardView() {
 
         <GlassCard className="space-y-5">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-heading text-2xl font-semibold text-white">Saved templates</h3>
-            <StatusBadge tone="gold">{savedTemplates.length} templates</StatusBadge>
+            <h3 className="font-heading text-2xl font-semibold text-white">القوالب المحفوظة</h3>
+            <StatusBadge tone="gold">{savedTemplates.length} قالب</StatusBadge>
           </div>
           {savedTemplates.length ? (
             <div className="grid gap-4">
@@ -144,7 +144,7 @@ export function DashboardView() {
 
       <div className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
         <GlassCard className="space-y-4">
-          <h3 className="font-heading text-2xl font-semibold text-white">Completed labs</h3>
+          <h3 className="font-heading text-2xl font-semibold text-white">المعامل المكتملة</h3>
           {completedLabs.map((lab) => (
             <div key={lab.id} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
               <div className="font-semibold text-white">{lab.title}</div>
@@ -154,7 +154,7 @@ export function DashboardView() {
         </GlassCard>
 
         <GlassCard className="space-y-4">
-          <h3 className="font-heading text-2xl font-semibold text-white">Service requests</h3>
+          <h3 className="font-heading text-2xl font-semibold text-white">طلبات الخدمة</h3>
           {requests.length ? (
             requests.map((request) => (
               <div key={request.id} className="rounded-[24px] border border-white/10 bg-white/5 p-4">

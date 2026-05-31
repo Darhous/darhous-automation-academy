@@ -19,7 +19,7 @@ export function HeroWorkflowCanvas({ compact = false }: { compact?: boolean }) {
             <div className="mt-2 font-heading text-xl font-semibold text-white">Preview orchestration lab</div>
           </div>
           <div className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-[var(--text-muted)]">
-            {compact ? "8 connected nodes" : "Live academy flow preview"}
+            {compact ? "8 nodes مترابطة" : "معاينة حية لمسار الأكاديمية"}
           </div>
         </div>
 
