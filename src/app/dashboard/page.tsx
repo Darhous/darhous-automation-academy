@@ -10,8 +10,8 @@ export default function DashboardPage() {
       <div className="section-inner space-y-6">
         <SectionHeader
           eyebrow="User Dashboard"
-          title="لوحة تحكم عملية تقرأ من بياناتك التجريبية"
-          description="هنا تلتقي المسارات، المعامل، القوالب المحفوظة، workflows المولدة، وطلبات الخدمة في شاشة واحدة."
+          title="لوحة تحكم تربط التعلّم بالتصميم بالتنفيذ"
+          description="هنا تلتقي المسارات، المعامل، القوالب المحفوظة، الـ blueprints، الـ workflows المولدة، وطلبات الخدمة في شاشة واحدة."
         />
         <DashboardView />
       </div>

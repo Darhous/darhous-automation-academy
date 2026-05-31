@@ -28,12 +28,18 @@ export function GradientButton({
   variant = "primary",
   icon,
   className,
+  onClick,
+  type = "button",
+  disabled = false,
 }: {
   href?: string;
   children: ReactNode;
   variant?: "primary" | "secondary" | "ghost";
   icon?: ReactNode;
   className?: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }) {
   const shared =
     "pill-button inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-5 text-sm font-semibold";
@@ -63,7 +69,16 @@ export function GradientButton({
     );
   }
 
-  return <div className={cn(shared, variants[variant], className)}>{content}</div>;
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={cn(shared, variants[variant], disabled && "cursor-not-allowed opacity-60", className)}
+    >
+      {content}
+    </button>
+  );
 }
 
 export function SectionHeader({

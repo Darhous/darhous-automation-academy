@@ -10,8 +10,8 @@ export default function AdminPage() {
       <div className="section-inner space-y-6">
         <SectionHeader
           eyebrow="Admin Foundation"
-          title="أساس لوحة إدارة جاهز للربط لاحقًا"
-          description="إدارة المسارات، القوالب، المختبرات، الطلبات، والمخرجات المولدة في واجهة تمهيدية واضحة وغير مضللة."
+          title="Admin foundation محترم ومهيأ لربط backend لاحقًا"
+          description="محتوى، طلبات خدمة، مخرجات مولدة، مقاييس تغطية، وثغرات محتوى واضحة في واجهة frontend-only صريحة وغير مضللة."
         />
         <AdminView />
       </div>

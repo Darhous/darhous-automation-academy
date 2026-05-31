@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SectionHeader, GlassCard } from "@/components/ui";
+import { GlassCard, SectionHeader } from "@/components/ui";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata("تواصل معنا", "قنوات التواصل وطلب الخدمات في أكاديمية درهوس.");
@@ -10,13 +10,15 @@ export default function ContactPage() {
       <div className="section-inner space-y-6">
         <SectionHeader
           eyebrow="Contact"
-          title="تواصل معنا أو افتح طلب خدمة"
-          description="للتعاون أو التنفيذ أو الاستفسارات المتعلقة بالمنصة والدمج المستقبلي داخل منظومة Darhous."
+          title="تواصل معنا أو ابدأ استشارة أتمتة"
+          description="للتعاون، التنفيذ، التدريب، أو الاستفسارات المتعلقة بالمنصة والدمج المستقبلي داخل منظومة Darhous."
         />
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-4">
           <GlassCard className="space-y-3">
             <h3 className="font-heading text-xl font-semibold text-white">البريد</h3>
-            <a href="mailto:ahmeddarhous@gmail.com" className="text-[var(--cyan)]">ahmeddarhous@gmail.com</a>
+            <a href="mailto:ahmeddarhous@gmail.com" className="text-[var(--cyan)]">
+              ahmeddarhous@gmail.com
+            </a>
           </GlassCard>
           <GlassCard className="space-y-3">
             <h3 className="font-heading text-xl font-semibold text-white">WhatsApp</h3>
@@ -26,7 +28,15 @@ export default function ContactPage() {
           </GlassCard>
           <GlassCard className="space-y-3">
             <h3 className="font-heading text-xl font-semibold text-white">خدمة مخصصة</h3>
-            <Link href="/services" className="text-[var(--cyan)]">اذهب إلى نموذج الطلب</Link>
+            <Link href="/services" className="text-[var(--cyan)]">
+              اذهب إلى نموذج الطلب
+            </Link>
+          </GlassCard>
+          <GlassCard className="space-y-3">
+            <h3 className="font-heading text-xl font-semibold text-white">Automation Agent</h3>
+            <Link href="/automation-agent" className="text-[var(--cyan)]">
+              ابدأ من blueprint استشاري
+            </Link>
           </GlassCard>
         </div>
       </div>

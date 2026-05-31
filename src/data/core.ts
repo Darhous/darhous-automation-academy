@@ -10,22 +10,31 @@ export const siteConfig = {
 
 export const navLinks = [
   { href: "/", label: "الرئيسية" },
+  { href: "/automation-agent", label: "وكيل الأتمتة" },
   { href: "/paths", label: "المسارات" },
+  { href: "/tools", label: "الأدوات" },
   { href: "/templates", label: "القوالب" },
   { href: "/generator", label: "مولد الأتمتة" },
   { href: "/builder", label: "المعمل" },
+  { href: "/labs", label: "التجارب" },
   { href: "/services", label: "الخدمات" },
   { href: "/dashboard", label: "لوحة التحكم" },
 ];
 
 export const footerLinks = [
   { href: "/", label: "الرئيسية" },
+  { href: "/automation-agent", label: "وكيل الأتمتة" },
   { href: "/paths", label: "المسارات" },
+  { href: "/tools", label: "الأدوات" },
   { href: "/templates", label: "القوالب" },
   { href: "/generator", label: "مولد الأتمتة" },
   { href: "/builder", label: "المعمل" },
+  { href: "/labs", label: "المعامل" },
   { href: "/services", label: "الخدمات" },
   { href: "/dashboard", label: "لوحة التحكم" },
+  { href: "/admin", label: "أساس الإدارة" },
+  { href: "/integrations", label: "التكاملات" },
+  { href: "/about", label: "عن المنصة" },
   { href: "/contact", label: "تواصل معنا" },
   { href: "/coming-soon", label: "سياسة الخصوصية" },
   { href: "/coming-soon", label: "الشروط والأحكام" },
@@ -44,4 +53,9 @@ export const homepageTemplateFilters = [
   "Google Workspace",
   "WhatsApp",
   "Email",
+  "Education",
+  "Sales",
+  "HR",
+  "Finance",
+  "Operations",
 ];

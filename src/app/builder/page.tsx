@@ -10,8 +10,8 @@ export default function BuilderPage() {
       <div className="section-inner space-y-6">
         <SectionHeader
           eyebrow="Workflow Builder"
-          title="معمل builder تفاعلي بواجهة أقرب لمنتج فعلي"
-          description="يمكنك اختيار nodes، إضافة عناصر جديدة، تشغيل اختبار تجريبي، ومراجعة logs وإعدادات كل خطوة."
+          title="Workflow planning lab بواجهة أقرب لمنتج تشغيلي"
+          description="اختر sample workflow، راجع العقد والبيانات المتوقعة والأخطاء المحتملة، أضف nodes جديدة، وشغّل اختبارًا تجريبيًا مع logs واضحة."
         />
         <BuilderLab />
       </div>

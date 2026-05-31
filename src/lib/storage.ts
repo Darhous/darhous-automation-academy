@@ -1,14 +1,14 @@
-import type { GeneratedWorkflow, ServiceRequest } from "@/types";
+import type { AutomationBlueprint, GeneratedWorkflow, ServiceRequest } from "@/types";
 
 const KEYS = {
   templates: "darhous.savedTemplates",
   workflows: "darhous.generatedWorkflows",
+  blueprints: "darhous.savedBlueprints",
   requests: "darhous.serviceRequests",
 };
 
 function readJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
-
   const raw = window.localStorage.getItem(key);
   if (!raw) return fallback;
 
@@ -39,8 +39,18 @@ export function getGeneratedWorkflows() {
 }
 
 export function saveGeneratedWorkflow(workflow: GeneratedWorkflow) {
-  const items = [workflow, ...getGeneratedWorkflows()].slice(0, 12);
+  const items = [workflow, ...getGeneratedWorkflows()].slice(0, 20);
   writeJSON(KEYS.workflows, items);
+  return items;
+}
+
+export function getSavedBlueprints() {
+  return readJSON<AutomationBlueprint[]>(KEYS.blueprints, []);
+}
+
+export function saveBlueprint(blueprint: AutomationBlueprint) {
+  const items = [blueprint, ...getSavedBlueprints()].slice(0, 20);
+  writeJSON(KEYS.blueprints, items);
   return items;
 }
 
@@ -49,7 +59,7 @@ export function getServiceRequests() {
 }
 
 export function saveServiceRequest(request: ServiceRequest) {
-  const items = [request, ...getServiceRequests()].slice(0, 20);
+  const items = [request, ...getServiceRequests()].slice(0, 30);
   writeJSON(KEYS.requests, items);
   return items;
 }

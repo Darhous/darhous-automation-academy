@@ -10,8 +10,8 @@ export default function GeneratorPage() {
       <div className="section-inner space-y-6">
         <SectionHeader
           eyebrow="AI Generator"
-          title="جرّب وصف الفكرة وشاهد الـ workflow المقترح"
-          description="المولد هنا لا يعتمد على API خارجي، لكنه يعطيك output واقعيًا بما يكفي لتقييم الفكرة، حفظها، أو تحويلها إلى طلب تنفيذ."
+          title="مولد خطة أتمتة جاهز للنقاش والتنفيذ"
+          description="المولد لا يعتمد على API خارجي في هذه المرحلة، لكنه ينتج خطة عملية مع setup steps وrisks وprompts متعددة المنصات وشرح موجه للعميل."
         />
         <GeneratorStudio />
       </div>

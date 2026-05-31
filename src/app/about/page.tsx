@@ -1,4 +1,4 @@
-import { SectionHeader, GlassCard } from "@/components/ui";
+import { GlassCard, SectionHeader } from "@/components/ui";
 import { siteConfig } from "@/data/core";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -11,19 +11,25 @@ export default function AboutPage() {
         <SectionHeader
           eyebrow="About Platform"
           title={siteConfig.nameArabic}
-          description="منتج مستقل اليوم، لكنه مصمم منذ البداية ليكون جزءًا طبيعيًا من Darhous Smart Learning Ecosystem."
+          description="منصة مستقلة اليوم، لكنها مصممة منذ البداية كأكاديمية أتمتة عربية قابلة للربط لاحقًا بالحساب الموحد واللوحة المشتركة داخل Darhous Smart Learning Ecosystem."
         />
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-3">
           <GlassCard className="space-y-4">
             <h3 className="font-heading text-2xl font-semibold text-white">الرؤية</h3>
             <p className="text-base leading-8 text-[var(--text-muted)]">
-              منصة عربية تجعل تعلم الأتمتة وبناءها وتشغيلها أكثر وضوحًا واحترافية، مع انتقال سلس لاحقًا إلى النظام البيئي الأكبر.
+              منصة عربية تجعل تعلّم الأتمتة وبناءها وتشغيلها أكثر وضوحًا واحترافية، من غير أن تضحي بالعمق أو الشكل الإنتاجي.
             </p>
           </GlassCard>
           <GlassCard className="space-y-4">
             <h3 className="font-heading text-2xl font-semibold text-white">الهيكلة</h3>
             <p className="text-base leading-8 text-[var(--text-muted)]">
-              واجهة App Router، طبقة بيانات مستقلة، local demo state، وملف تكامل يحدد بوضوح أماكن الربط القادمة مع الحساب الموحد والبيانات المشتركة.
+              Next.js App Router، TypeScript، Tailwind، بيانات typed، local state آمن، وملف تكامل يحدد بوضوح أماكن الربط القادمة.
+            </p>
+          </GlassCard>
+          <GlassCard className="space-y-4">
+            <h3 className="font-heading text-2xl font-semibold text-white">v2 Platform</h3>
+            <p className="text-base leading-8 text-[var(--text-muted)]">
+              Learn Automation، Build Automation، Design with an Agent، Use Ready Templates، Offer Automation as a Service.
             </p>
           </GlassCard>
         </div>

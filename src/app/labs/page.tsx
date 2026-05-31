@@ -10,8 +10,8 @@ export default function LabsPage() {
       <div className="section-inner space-y-6">
         <SectionHeader
           eyebrow="Automation Labs"
-          title="مختبرات تطبيقية تبني عضلة التنفيذ"
-          description="اختر مختبرًا، راجع goal والأدوات والنتيجة النهائية، ثم استخدمه كنقطة انطلاق لمسارك العملي."
+          title="معامل تطبيقية تبني الثقة قبل التنفيذ الحقيقي"
+          description="كل Lab هنا يتضمن objective واضحًا، سيناريو، خطوات، مخرجات متوقعة، أخطاء شائعة، challenge task، وcompletion checklist."
         />
         <LabsShowcase />
       </div>

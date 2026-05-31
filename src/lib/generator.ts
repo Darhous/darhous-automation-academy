@@ -1,128 +1,106 @@
-import { automationTemplates } from "@/data/templates";
-import type { Difficulty, GeneratedWorkflow } from "@/types";
+import { automationTemplates } from "@/data/automationTemplates";
+import type { GeneratedWorkflow } from "@/types";
 
-interface Scenario {
-  keys: string[];
-  trigger: string;
-  apps: string[];
-  steps: string[];
-  complexity: Difficulty;
-  setupTime: string;
-  permissions: string[];
-  templateId: string;
-  summary: string;
-}
+function matchPrompt(prompt: string) {
+  const normalized = prompt.toLowerCase();
 
-const scenarios: Scenario[] = [
-  {
-    keys: ["واتساب", "whatsapp", "طالب", "test", "اختبار"],
-    trigger: "إكمال اختبار أو تحديث حالة طالب",
-    apps: ["Google Forms", "Google Sheets", "WhatsApp", "Gmail"],
-    steps: [
-      "التقاط نتيجة الاختبار من النموذج أو النظام",
-      "تحديث سجل الطالب في Google Sheets",
-      "تجهيز رسالة مخصصة حسب النتيجة",
-      "إرسال واتساب فوري للطالب",
-      "تسجيل الحدث داخل dashboard والمتابعة بالبريد",
-    ],
-    complexity: "متوسط",
-    setupTime: "45-60 دقيقة",
-    permissions: ["الوصول إلى Google Forms", "تعديل Google Sheets", "إرسال WhatsApp"],
-    templateId: "welcome-students",
-    summary: "Workflow تعليمي يربط نتائج الاختبار مع التواصل الفوري والمتابعة.",
-  },
-  {
-    keys: ["crm", "عميل", "lead", "مبيعات"],
-    trigger: "استلام lead جديد أو تحديث في pipeline",
-    apps: ["Google Forms", "CRM", "WhatsApp", "Gmail"],
-    steps: [
-      "استقبال بيانات lead جديد",
-      "تقييم المرحلة أو المصدر",
-      "إنشاء أو تحديث السجل داخل CRM",
-      "إرسال رسالة follow-up مناسبة",
-      "تنبيه الفريق التجاري إذا كانت الحالة عالية الأولوية",
-    ],
-    complexity: "متوسط",
-    setupTime: "35-50 دقيقة",
-    permissions: ["الوصول إلى CRM", "إرسال Gmail", "إرسال WhatsApp"],
-    templateId: "lead-followup",
-    summary: "مسار مبيعات واضح يمنع تأخر الاستجابة ويرفع احتمال التحويل.",
-  },
-  {
-    keys: ["بريد", "email", "mail", "تلخيص"],
-    trigger: "وصول رسائل جديدة أو موعد الملخص اليومي",
-    apps: ["Gmail", "AI Model", "Notion"],
-    steps: [
-      "جمع الرسائل المهمة من صندوق الوارد",
-      "إرسال المحتوى إلى AI Model للتلخيص",
-      "استخراج الأولويات والإجراءات المقترحة",
-      "حفظ brief داخل Notion",
-      "إرسال الملخص للفريق أو المستخدم",
-    ],
-    complexity: "متوسط",
-    setupTime: "25-35 دقيقة",
-    permissions: ["قراءة Gmail", "الوصول إلى نموذج AI", "تعديل Notion"],
-    templateId: "daily-email-summary",
-    summary: "Workflow يساعدك على رؤية البريد اليومي كقرارات بدل فوضى.",
-  },
-  {
-    keys: ["تقرير", "report", "sheet", "مبيعات أسبوعي"],
-    trigger: "موعد أسبوعي أو تحديث بيانات جديد",
-    apps: ["Google Sheets", "AI Model", "PDF Generator"],
-    steps: [
-      "قراءة مؤشرات الأداء من الجداول",
-      "استخراج التغيرات الرئيسية أسبوعيًا",
-      "صياغة ملخص تنفيذي بالذكاء الاصطناعي",
-      "إخراج ملف PDF أو brief مرئي",
-      "مشاركته مع أصحاب القرار",
-    ],
-    complexity: "متوسط",
-    setupTime: "40-55 دقيقة",
-    permissions: ["قراءة Google Sheets", "استخدام PDF Generator"],
-    templateId: "weekly-sales-report",
-    summary: "مسار تقارير يختصر التجميع والصياغة والتنسيق في خطوة واحدة.",
-  },
-];
+  if (normalized.includes("lead") || normalized.includes("عميل") || normalized.includes("مبيعات")) {
+    return {
+      title: "خطة متابعة Lead متعددة القنوات",
+      summary: "خطة عملية لالتقاط lead وتقييمه وتحديث CRM مع متابعة مبكرة.",
+      trigger: "New form submission أو New CRM lead",
+      actions: ["تنظيف البيانات", "إنشاء lead", "إرسال follow-up", "تذكير مسؤول المبيعات"],
+      recommendedTools: ["CRM", "Make", "WhatsApp concepts", "Google Sheets"],
+      setupSteps: ["تحديد الحقول الأساسية", "توصيل source بالـ CRM", "إعداد رسالة approved", "بناء تذكير follow-up", "اختبار lead مكرر وlead ناقص"],
+      testChecklist: ["اختبار lead كامل", "اختبار duplicate", "اختبار failure في CRM"],
+      risks: ["رسائل follow-up قبل التأهيل", "فقدان owner assignment", "تكرار السجل"],
+      clientExplanation: "ستتحول عملية متابعة الـ leads من رد فعل متأخر إلى مسار منظم يبدأ خلال دقائق من وصول العميل المحتمل.",
+      templateId: "lead-followup-whatsapp",
+    };
+  }
 
-function fallbackScenario(prompt: string): Scenario {
+  if (normalized.includes("فاتورة") || normalized.includes("invoice") || normalized.includes("تحصيل")) {
+    return {
+      title: "خطة تذكير الفواتير والتحصيل",
+      summary: "خطة مجدولة لفحص تواريخ الاستحقاق وإرسال reminders وتصعيد الحالات المتأخرة.",
+      trigger: "Scheduled time",
+      actions: ["فحص الفواتير المستحقة", "إرسال reminder", "تصعيد داخلي للحالات الحساسة"],
+      recommendedTools: ["Google Sheets", "Email", "Power Automate"],
+      setupSteps: ["ترتيب بيانات الفواتير", "تعريف نافذة التذكير", "إعداد رسائل متعددة", "إضافة مسار approval للقيم الكبيرة"],
+      testChecklist: ["اختبار فاتورة مستحقة", "اختبار فاتورة مدفوعة", "اختبار escalation"],
+      risks: ["تواريخ غير محدثة", "إزعاج العميل بعد الدفع", "غياب مراجعة بشرية للحالات الكبيرة"],
+      clientExplanation: "ستضمن الخطة متابعة التحصيل بشكل أنضج وتقلل الاعتماد على التذكير اليدوي غير المنتظم.",
+      templateId: "finance-approval-lane",
+    };
+  }
+
+  if (normalized.includes("طالب") || normalized.includes("course") || normalized.includes("registration") || normalized.includes("دورة")) {
+    return {
+      title: "خطة تسجيل وتعريف المتعلمين",
+      summary: "خطة تربط التسجيل، التحديث، الرسائل، والتذكيرات قبل الانطلاق.",
+      trigger: "New form submission",
+      actions: ["تسجيل الطالب", "إرسال welcome", "إشعار فريق القبول", "جدولة reminder"],
+      recommendedTools: ["Google Forms", "Google Sheets", "Gmail", "Calendar"],
+      setupSteps: ["تصميم نموذج التسجيل", "إضافة حالة القبول أو الدفع", "إنشاء قوالب الترحيب", "إعداد reminder قبل البداية"],
+      testChecklist: ["اختبار طالب جديد", "اختبار حالة incomplete", "اختبار reminder"],
+      risks: ["تسجيل مكرر", "بريد غير صحيح", "حالة دفع غير محدثة"],
+      clientExplanation: "الخطة تعطي المؤسسة التعليمية رحلة تسجيل احترافية تحافظ على صورة المركز وتخفف العبء على فريق القبول.",
+      templateId: "course-registration-pipeline",
+    };
+  }
+
+  if (normalized.includes("تقرير") || normalized.includes("report") || normalized.includes("ملخص")) {
+    return {
+      title: "خطة تقرير دوري وتنبيه إداري",
+      summary: "خطة تجمع البيانات ثم تولد report موحدًا مع narrative قابل للمشاركة.",
+      trigger: "Scheduled time",
+      actions: ["جمع البيانات", "حساب KPIs", "كتابة summary", "إرسال التقرير"],
+      recommendedTools: ["Google Sheets", "AI Model", "Email", "PDF Generator"],
+      setupSteps: ["تجهيز مصدر البيانات", "تعريف المؤشرات", "صياغة prompt الملخص", "اختبار المخرجات مع الإدارة"],
+      testChecklist: ["فحص صحة الأرقام", "اختبار فترة زمنية", "اختبار narrative"],
+      risks: ["تفاوت المصادر", "summary غير دقيق", "إرسال لأشخاص غير معنيين"],
+      clientExplanation: "الخطة تجعل التقارير جزءًا ثابتًا من التشغيل بدل أن تكون عبئًا أسبوعيًا أو يوميًا على الفريق.",
+      templateId: "weekly-sales-report",
+    };
+  }
+
   return {
-    keys: [],
-    trigger: "وصول حدث جديد من form أو webhook",
-    apps: ["Webhook", "AI Model", "Google Sheets", "Dashboard"],
-    steps: [
-      "التقاط الحدث من المصدر الأساسي",
-      "تنظيف البيانات وتحديد نوع الطلب",
-      "تمرير الحالة عبر خطوة AI للفهم أو التصنيف",
-      "تحديث سجل تشغيلي في Google Sheets أو CRM",
-      "إرسال إشعار نهائي وإظهار الحالة في dashboard",
-    ],
-    complexity: prompt.length > 90 ? "متقدم" : "متوسط",
-    setupTime: prompt.length > 90 ? "60-90 دقيقة" : "30-45 دقيقة",
-    permissions: ["الوصول إلى مصدر البيانات", "الكتابة في السجل التشغيلي", "تشغيل الإشعارات"],
-    templateId: "customer-requests",
-    summary: "اقتراح عام قابل للتخصيص حسب الأدوات التي تستخدمها اليوم.",
+    title: "خطة Workflow عملية قابلة للتنفيذ",
+    summary: "خطة عامة تحول الطلب إلى Trigger واضح، خطوات، أدوات، ومخاطر واختبارات.",
+    trigger: "حدث جديد من form أو CRM أو webhook أو schedule",
+    actions: ["تنظيف البيانات", "تنفيذ الخطوات الرئيسية", "إرسال إشعار أو تقرير", "تسجيل النتيجة"],
+    recommendedTools: ["n8n", "Google Sheets", "Email", "Notion"],
+    setupSteps: ["تفكيك العملية", "تحديد trigger", "توصيل الأدوات", "إضافة error handling", "تنفيذ QA"],
+    testChecklist: ["اختبار happy path", "اختبار بيانات ناقصة", "اختبار تكرار التنفيذ"],
+    risks: ["عدم وضوح الملكية", "اعتماد زائد على خطوة واحدة", "غياب التوثيق"],
+    clientExplanation: "هذه الخطة مناسبة كبداية استشارية ثم يمكن تخصيصها حسب القسم، الأدوات، وحساسية البيانات.",
+    templateId: "consulting-proposal-flow",
   };
 }
 
 export function generateWorkflow(prompt: string): GeneratedWorkflow {
-  const normalized = prompt.toLowerCase();
-  const matched = scenarios.find((scenario) =>
-    scenario.keys.some((key) => normalized.includes(key.toLowerCase())),
-  );
-  const scenario = matched ?? fallbackScenario(prompt);
-  const template = automationTemplates.find((item) => item.id === scenario.templateId);
+  const scenario = matchPrompt(prompt);
+  const matchedTemplate = automationTemplates.find((template) => template.id === scenario.templateId) ?? automationTemplates[0];
+  const technicalContext = `اعتمد على ${scenario.recommendedTools.join("، ")} ونفّذ الخطوات: ${scenario.setupSteps.join(" -> ")}`;
 
   return {
     id: `wf-${Date.now()}`,
     prompt,
-    trigger: scenario.trigger,
-    requiredApps: scenario.apps,
-    steps: scenario.steps,
-    complexity: scenario.complexity,
-    setupTime: scenario.setupTime,
-    permissions: scenario.permissions,
-    recommendedTemplate: template?.title ?? "بناء Workflow مخصص",
+    title: scenario.title,
     summary: scenario.summary,
+    trigger: scenario.trigger,
+    actions: scenario.actions,
+    recommendedTools: scenario.recommendedTools,
+    setupSteps: scenario.setupSteps,
+    testChecklist: scenario.testChecklist,
+    risks: scenario.risks,
+    clientExplanation: `${scenario.clientExplanation} القالب الأقرب: ${matchedTemplate.title}.`,
+    prompts: {
+      n8n: `حوّل هذا السيناريو إلى n8n workflow. ${technicalContext}. أضف nodes وerror handling وlogging.`,
+      make: `اكتب خطة Make scenario لهذا السيناريو: ${scenario.title}. ${technicalContext}. وضّح modules وfilters وrouters.`,
+      zapier: `صمّم Zapier workflow لهذا السيناريو: ${scenario.title}. ${technicalContext}. اذكر متى يصبح Zapier غير مناسب.`,
+      python: `اكتب technical plan بلغة Python لهذا السيناريو: ${scenario.title}. ${technicalContext}. اذكر libraries ونقاط التحقق.`,
+    },
     savedAt: new Date().toISOString(),
   };
 }

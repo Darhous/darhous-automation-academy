@@ -10,8 +10,8 @@ export default function TemplatesPage() {
       <div className="section-inner space-y-6">
         <SectionHeader
           eyebrow="Template Marketplace"
-          title="سوق قوالب جاهز للحفظ والتشغيل"
-          description="فلترة، معاينة، وحفظ القوالب تعمل هنا فعليًا على الواجهة. القوالب المحفوظة ستظهر داخل لوحة التحكم."
+          title="سوق قوالب أتمتة عملي وقابل للتنفيذ"
+          description="فلترة حسب الفئة والقسم ومستوى الصعوبة ونوع الوصول، مع بحث فعلي، preview تفصيلي، حفظ محلي، ونسخ implementation plan."
         />
         <TemplatesMarketplace />
       </div>
