@@ -6,52 +6,53 @@ import { HeroWorkflowCanvas } from "@/components/workflow-canvas";
 import { GradientButton, GlassCard, StatusBadge } from "@/components/ui";
 import { generateWorkflow } from "@/lib/generator";
 import { saveGeneratedWorkflow } from "@/lib/storage";
-import { formatDate } from "@/lib/utils";
+import { copyTextToClipboard, formatDate } from "@/lib/utils";
 import type { GeneratedWorkflow } from "@/types";
 
 const presets = [
   {
     id: "lead-follow-up",
-    label: "lead follow-up",
+    label: "متابعة Lead",
     prompt: "أريد workflow لمتابعة lead جديد من نموذج الموقع عبر CRM ورسالة واتساب ثم إنشاء مهمة للمتابعة.",
   },
   {
     id: "onboarding",
-    label: "onboarding",
+    label: "تهيئة الموظف",
     prompt: "أريد أتمتة onboarding للموظف الجديد تشمل إنشاء مهام وإرسال البريد وتجهيز مجلد المستندات.",
   },
   {
     id: "invoice-reminder",
-    label: "invoice reminder",
+    label: "تذكير الفواتير",
     prompt: "أريد تذكيرًا تلقائيًا بالفواتير المستحقة مع مراجعة بشرية للحالات الكبيرة.",
   },
   {
     id: "report-generation",
-    label: "report generation",
+    label: "توليد التقارير",
     prompt: "أريد إنشاء تقرير يومي تلقائي من Google Sheets مع ملخص تنفيذي وإرساله بالبريد.",
   },
   {
     id: "content-approval",
-    label: "content approval",
+    label: "اعتماد المحتوى",
     prompt: "أريد workflow لاعتماد المحتوى بين الكاتب والمراجع ثم تجهيز النشر.",
   },
   {
     id: "student-registration",
-    label: "student registration",
+    label: "تسجيل الطلاب",
     prompt: "أريد أتمتة تسجيل الطلاب ثم إرسال رسالة ترحيب وتأكيد وجدولة تذكير قبل بداية الدورة.",
   },
   {
     id: "booking-confirmation",
-    label: "booking confirmation",
+    label: "تأكيد الحجز",
     prompt: "أريد تأكيد حجوزات المواعيد وإرسال reminder قبل الموعد مع تحديث السجل.",
   },
 ];
 
 const defaultPrompt = presets[0].prompt;
+const defaultWorkflow = generateWorkflow(defaultPrompt, "2026-01-01T00:00:00.000Z");
 
 export function GeneratorStudio({ compact = false }: { compact?: boolean }) {
   const [prompt, setPrompt] = useState(defaultPrompt);
-  const [workflow, setWorkflow] = useState<GeneratedWorkflow>(() => generateWorkflow(defaultPrompt));
+  const [workflow, setWorkflow] = useState<GeneratedWorkflow>(defaultWorkflow);
   const [notice, setNotice] = useState("");
 
   const clientSummary = useMemo(
@@ -60,8 +61,8 @@ export function GeneratorStudio({ compact = false }: { compact?: boolean }) {
         workflow.title,
         workflow.summary,
         `Trigger: ${workflow.trigger}`,
-        `Recommended tools: ${workflow.recommendedTools.join("، ")}`,
-        `Actions: ${workflow.actions.join("، ")}`,
+        `الأدوات المقترحة: ${workflow.recommendedTools.join("، ")}`,
+        `الإجراءات: ${workflow.actions.join("، ")}`,
       ].join("\n"),
     [workflow],
   );
@@ -79,8 +80,8 @@ export function GeneratorStudio({ compact = false }: { compact?: boolean }) {
   }
 
   async function copyText(label: string, text: string) {
-    await navigator.clipboard.writeText(text);
-    setNotice(`تم نسخ ${label}.`);
+    const copied = await copyTextToClipboard(text);
+    setNotice(copied ? `تم نسخ ${label}.` : "تعذر النسخ تلقائيًا على هذا المتصفح.");
   }
 
   return (
@@ -88,10 +89,10 @@ export function GeneratorStudio({ compact = false }: { compact?: boolean }) {
       <GlassCard className="space-y-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Automation Plan Generator</div>
+            <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">مولد خطط الأتمتة</div>
             <h3 className="mt-2 font-heading text-2xl font-semibold text-white">حوّل فكرتك إلى خطة تنفيذ أتمتة جاهزة</h3>
           </div>
-          <StatusBadge tone="violet">Frontend-ready AI stub</StatusBadge>
+          <StatusBadge tone="violet">محاكاة ذكية جاهزة للتكامل</StatusBadge>
         </div>
 
         <p className="text-sm leading-7 text-[var(--text-muted)]">
@@ -142,10 +143,10 @@ export function GeneratorStudio({ compact = false }: { compact?: boolean }) {
         {!compact ? <HeroWorkflowCanvas compact /> : null}
       </GlassCard>
 
-      <GlassCard className="space-y-5">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Generated Output</div>
+        <GlassCard className="space-y-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+            <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">المخرجات المولدة</div>
             <h3 className="mt-2 font-heading text-2xl font-semibold text-white">{workflow.title}</h3>
           </div>
           <div className="rounded-full border border-white/10 px-3 py-2 text-xs text-[var(--text-soft)]">{formatDate(workflow.savedAt)}</div>
@@ -155,35 +156,35 @@ export function GeneratorStudio({ compact = false }: { compact?: boolean }) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <InfoCard label="Trigger" value={workflow.trigger} />
-          <InfoCard label="Recommended Tools" value={workflow.recommendedTools.join("، ")} />
+          <InfoCard label="الأدوات المقترحة" value={workflow.recommendedTools.join("، ")} />
         </div>
 
-        <Panel title="Workflow Actions" items={workflow.actions} />
-        <Panel title="Setup Steps" items={workflow.setupSteps} />
-        <Panel title="Testing Checklist" items={workflow.testChecklist} />
-        <Panel title="Risks" items={workflow.risks} />
+        <Panel title="إجراءات الـ Workflow" items={workflow.actions} />
+        <Panel title="خطوات الإعداد" items={workflow.setupSteps} />
+        <Panel title="قائمة التحقق للاختبار" items={workflow.testChecklist} />
+        <Panel title="المخاطر" items={workflow.risks} />
 
         <div className="rounded-[24px] border border-[rgba(244,198,114,0.2)] bg-[rgba(244,198,114,0.08)] p-4">
-          <div className="font-heading text-lg font-semibold text-white">Client-facing explanation</div>
+          <div className="font-heading text-lg font-semibold text-white">شرح موجه للعميل</div>
           <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{workflow.clientExplanation}</p>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2">
-          <PromptCard title="n8n Prompt" prompt={workflow.prompts.n8n} onCopy={() => copyText("n8n prompt", workflow.prompts.n8n)} />
-          <PromptCard title="Make Prompt" prompt={workflow.prompts.make} onCopy={() => copyText("Make prompt", workflow.prompts.make)} />
-          <PromptCard title="Zapier Prompt" prompt={workflow.prompts.zapier} onCopy={() => copyText("Zapier prompt", workflow.prompts.zapier)} />
-          <PromptCard title="Python Prompt" prompt={workflow.prompts.python} onCopy={() => copyText("Python prompt", workflow.prompts.python)} />
+          <PromptCard title="Prompt لـ n8n" prompt={workflow.prompts.n8n} onCopy={() => copyText("prompt n8n", workflow.prompts.n8n)} />
+          <PromptCard title="Prompt لـ Make" prompt={workflow.prompts.make} onCopy={() => copyText("prompt Make", workflow.prompts.make)} />
+          <PromptCard title="Prompt لـ Zapier" prompt={workflow.prompts.zapier} onCopy={() => copyText("prompt Zapier", workflow.prompts.zapier)} />
+          <PromptCard title="Prompt لـ Python" prompt={workflow.prompts.python} onCopy={() => copyText("prompt Python", workflow.prompts.python)} />
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2">
           <GradientButton onClick={() => copyText("الملخص الكامل", clientSummary)} variant="secondary" className="w-full">
-            Copy Summary
+            انسخ الملخص
           </GradientButton>
           <Link
             href="/automation-agent"
             className="inline-flex h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white transition hover:border-[var(--border-bright)]"
           >
-            افتح Automation Agent
+            افتح وكيل الأتمتة
           </Link>
         </div>
       </GlassCard>
@@ -229,7 +230,7 @@ function PromptCard({
       <div className="flex items-center justify-between gap-3">
         <div className="font-heading text-base font-semibold text-white">{title}</div>
         <button type="button" onClick={onCopy} className="text-xs font-semibold text-[var(--cyan)]">
-          Copy
+          نسخ
         </button>
       </div>
       <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">{prompt}</p>

@@ -17,18 +17,18 @@ import { pricingPlans } from "@/data/pricing";
 import { siteConfig } from "@/data/core";
 
 const pillars = [
-  { title: "Learn Automation", description: "مسارات عربية واضحة تبني الفهم ثم التطبيق ثم الحوكمة.", icon: FormIcon },
-  { title: "Build Automation", description: "مولد، Builder، Labs، وقوالب جاهزة لتسريع التنفيذ.", icon: NetworkIcon },
-  { title: "Design with an Agent", description: "وكيل استشاري يحول الوصف إلى Blueprint تنفيذي متكامل.", icon: BotIcon },
-  { title: "Use Ready Templates", description: "Marketplace غني بقوالب عملية وقابلة للحفظ والتطوير.", icon: LayersIcon },
-  { title: "Offer Automation as a Service", description: "صفحة خدمات وباقات واستشارة جاهزة للتعامل مع العملاء.", icon: ChartIcon },
+  { title: "تعلم الأتمتة", description: "مسارات عربية واضحة تبني الفهم ثم التطبيق ثم الحوكمة.", icon: FormIcon },
+  { title: "ابنِ الأتمتة", description: "مولد، Builder، Labs، وقوالب جاهزة لتسريع التنفيذ.", icon: NetworkIcon },
+  { title: "صمّمها مع وكيل", description: "وكيل استشاري يحول الوصف إلى Blueprint تنفيذي متكامل.", icon: BotIcon },
+  { title: "استخدم قوالب جاهزة", description: "Marketplace غني بقوالب عملية وقابلة للحفظ والتطوير.", icon: LayersIcon },
+  { title: "قدّم الأتمتة كخدمة", description: "صفحة خدمات وباقات واستشارة جاهزة للتعامل مع العملاء.", icon: ChartIcon },
 ];
 
 const differentiators = [
   "عربي أولًا، لكن بدون إخفاء المصطلحات التقنية المهمة مثل workflow وtrigger وwebhook وAPI.",
   "منصة تجمع التعلم والتصميم والبناء والخدمة في رحلة واحدة، بدل فصلها في أدوات متباعدة.",
-  "Automation Agent يعطيك blueprint حقيقي بدل مجرد نص تسويقي أو output عشوائي.",
-  "طبقة بيانات typed ونظيفة تسمح بإضافة backend وSSO وdashboard shared لاحقًا بدون إعادة البناء من الصفر.",
+  "Automation Agent يعطيك blueprint حقيقي بدل مجرد نص تسويقي أو مخرجات عشوائية.",
+  "طبقة بيانات typed ونظيفة تسمح بإضافة backend وSSO وdashboard مشترك لاحقًا بدون إعادة البناء من الصفر.",
 ];
 
 export function HomePage() {
@@ -47,15 +47,15 @@ export function HomePage() {
             <GlassCard className="overflow-hidden p-7 sm:p-8">
               <div className="relative z-10 space-y-6">
                 <div className="flex flex-wrap gap-2">
-                  <StatusBadge tone="cyan">Arabic-first Automation Academy</StatusBadge>
-                  <StatusBadge tone="violet">v2 Product Platform</StatusBadge>
+                  <StatusBadge tone="cyan">أكاديمية أتمتة عربية أولًا</StatusBadge>
+                  <StatusBadge tone="violet">منصة أتمتة v2</StatusBadge>
                 </div>
                 <div className="space-y-4">
                   <h1 className="font-heading text-4xl font-bold leading-tight text-white sm:text-5xl xl:text-6xl">
                     تعلّم، صمّم، ابنِ، وأطلق الأتمتة من منصة واحدة
                   </h1>
                   <p className="max-w-2xl text-base leading-8 text-[var(--text-muted)] sm:text-lg">
-                    {siteConfig.description} في v2، أصبحت المنصة أقرب إلى consultant عملي: تعلم structured، templates قابلة للاستخدام، Tools Hub، Labs، Builder، وAutomation Design Agent.
+                    {siteConfig.description} في v2، أصبحت المنصة أقرب إلى مستشار عملي: تتعلم من مسارات واضحة، تستخدم templates قابلة للتطبيق، وتقارن الأدوات وتبني الـ workflows وتخططها مع وكيل أتمتة استشاري.
                   </p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-3">
@@ -70,9 +70,9 @@ export function HomePage() {
                   </GradientButton>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-3">
-                  <MiniHeroStat label="Learning Paths" value={`${automationLearningPaths.length}+`} />
-                  <MiniHeroStat label="Templates" value="30+" />
-                  <MiniHeroStat label="Labs & Tools" value={`${automationToolsDirectory.length}+`} />
+                  <MiniHeroStat label="مسارات التعلّم" value={`${automationLearningPaths.length}+`} />
+                  <MiniHeroStat label="قوالب جاهزة" value="30+" />
+                  <MiniHeroStat label="أدوات ومعامل" value={`${automationToolsDirectory.length}+`} />
                 </div>
               </div>
             </GlassCard>
@@ -87,7 +87,7 @@ export function HomePage() {
           <SectionHeader
             eyebrow="Five Pillars"
             title="خمسة أعمدة تبني منصة أتمتة حقيقية"
-            description="هذه ليست landing page فقط. هي أكاديمية، consultant، lab، marketplace، وواجهة خدمة جاهزة للنمو."
+            description="هذه ليست صفحة تعريفية فقط. هي أكاديمية، مستشار تصميم، معمل عملي، marketplace للقوالب، وواجهة خدمة جاهزة للنمو."
           />
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
             {pillars.map((pillar) => (
@@ -110,13 +110,13 @@ export function HomePage() {
               <StatusBadge tone="gold">Flagship Feature</StatusBadge>
               <h2 className="font-heading text-3xl font-bold text-white">Automation Design Agent</h2>
               <p className="text-base leading-8 text-[var(--text-muted)]">
-                من أول business goal إلى proposal جاهز للعميل وtechnical brief وprompts متعددة المنصات. الوكيل يسأل عن العملية الحالية، الأدوات، trigger، القيود، ثم يقترح stack مناسب وخطة اختبار وصيانة واضحة.
+                من أول business goal إلى proposal جاهز للعميل وtechnical brief وprompts متعددة المنصات. الوكيل يسأل عن العملية الحالية، الأدوات، trigger، والقيود، ثم يقترح stack مناسب وخطة اختبار وصيانة واضحة.
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 {[
                   "يسأل عن الهدف والجهة والألم التشغيلي",
                   "يقترح stack حسب الكلفة والخصوصية والمهارة",
-                  "يولد Blueprint وProposal وTechnical Brief",
+                  "يولد Blueprint وProposal وTechnical Brief جاهزين",
                   "يحفظ المخرجات محليًا لتظهر داخل Dashboard",
                 ].map((item) => (
                   <div key={item} className="rounded-[22px] border border-white/10 bg-white/5 px-4 py-3 text-sm text-[var(--text-muted)]">
@@ -134,10 +134,10 @@ export function HomePage() {
 
             <div className="grid gap-4">
               <GlassCard className="space-y-3 rounded-[26px] bg-[rgba(255,255,255,0.03)]">
-                <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Blueprint Preview</div>
-                <div className="font-heading text-xl font-semibold text-white">Sales follow-up blueprint</div>
+                <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">معاينة الخطة</div>
+                <div className="font-heading text-xl font-semibold text-white">Blueprint لمتابعة العملاء المحتملين</div>
                 <div className="space-y-2">
-                  {["Trigger: New form submission", "Stack: Make + CRM + WhatsApp concepts", "Review: human approval للحالات الحساسة", "Output: lead follow-up + task + log"].map((item) => (
+                  {["Trigger: New form submission", "Stack: Make + CRM + WhatsApp concepts", "Review: human approval للحالات الحساسة", "Output: متابعة lead + task + log"].map((item) => (
                     <div key={item} className="rounded-2xl border border-white/8 bg-[rgba(255,255,255,0.03)] px-4 py-3 text-sm text-[var(--text-muted)]">
                       {item}
                     </div>
@@ -203,7 +203,7 @@ export function HomePage() {
           <SectionHeader
             eyebrow="Tools Hub"
             title="دليل أدوات + أدوات قرار تشغيلية"
-            description="قبل أن تختار n8n أو Make أو Python، افهم متى تستخدم كل واحد ومتى تتجنبه. صفحة الأدوات فيها directory حي، ROI calculator، complexity estimator، stack advisor، checklist generator، وproposal generator."
+            description="قبل أن تختار n8n أو Make أو Python، افهم متى تستخدم كل واحد ومتى تتجنبه. صفحة الأدوات فيها directory حي، حاسبة ROI، مقدّر تعقيد، مستشار Stack، مولد Checklists، ومولد Proposal."
             actions={<GradientButton href="/tools">افتح الأدوات</GradientButton>}
           />
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -310,7 +310,7 @@ export function HomePage() {
             <SectionHeader
               eyebrow="Why Darhous"
               title="لماذا تبدو هذه المنصة مختلفة؟"
-              description="لأنها مصممة حول رحلة أتمتة كاملة، لا حول شكل landing page فقط."
+              description="لأنها مصممة حول رحلة أتمتة كاملة، لا حول شكل صفحة تعريفية فقط."
             />
             <div className="space-y-3">
               {differentiators.map((item) => (
@@ -329,12 +329,12 @@ export function HomePage() {
             />
             <div className="grid gap-4 md:grid-cols-2">
               <MiniHeroStat label="SSO" value={integrationBlueprint.sso.status} />
-              <MiniHeroStat label="Shared Profile" value={integrationBlueprint.sharedProfile.status} />
-              <MiniHeroStat label="Certificates" value={integrationBlueprint.certificates.status} />
-              <MiniHeroStat label="Backend" value={integrationBlueprint.backend.status} />
+              <MiniHeroStat label="الملف الموحد" value={integrationBlueprint.sharedProfile.status} />
+              <MiniHeroStat label="الشهادات" value={integrationBlueprint.certificates.status} />
+              <MiniHeroStat label="البنية الخلفية" value={integrationBlueprint.backend.status} />
             </div>
             <div className="grid gap-4 md:grid-cols-5">
-              {["Darhous Main Platform", "Automation Academy", "User Dashboard", "Templates & Labs", "Services & Certificates"].map((item, index) => (
+              {["المنصة الرئيسية", "أكاديمية الأتمتة", "لوحة المستخدم", "القوالب والمعامل", "الخدمات والشهادات"].map((item, index) => (
                 <div key={item} className="relative rounded-[24px] border border-white/10 bg-white/5 p-4 text-center text-sm font-semibold text-white">
                   {item}
                   {index < 4 ? <div className="marching-line absolute -left-5 top-1/2 hidden h-px w-6 -translate-y-1/2 bg-[rgba(87,225,255,0.25)] md:block" /> : null}
@@ -379,7 +379,7 @@ export function HomePage() {
               تعلم، جرّب، ابنِ، وشغّل أول Workflow ذكي لك مع درهوس. وإذا أردت تحويله إلى حل عملي لعميل أو لفريقك، فصفحة الخدمات والوكيل جاهزان لذلك.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <GradientButton href="/automation-agent">ابدأ مع Automation Agent</GradientButton>
+              <GradientButton href="/automation-agent">ابدأ مع وكيل الأتمتة</GradientButton>
               <GradientButton href="/templates" variant="secondary">
                 استكشف القوالب
               </GradientButton>

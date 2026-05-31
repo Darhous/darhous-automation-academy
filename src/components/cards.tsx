@@ -24,6 +24,44 @@ function accessTone(access: AutomationTemplate["access"]) {
   return "gold" as const;
 }
 
+function accessLabel(access: AutomationTemplate["access"]) {
+  if (access === "Free") return "مجاني";
+  if (access === "Pro") return "احترافي";
+  return "جاهز للخدمة";
+}
+
+function categoryLabel(category: string) {
+  const labels: Record<string, string> = {
+    Education: "التعليم",
+    Sales: "المبيعات",
+    AI: "الذكاء الاصطناعي",
+    Finance: "المالية",
+    Marketing: "التسويق",
+    HR: "الموارد البشرية",
+    Support: "خدمة العملاء",
+    Operations: "العمليات",
+    Clinics: "العيادات",
+    "Real Estate": "العقارات",
+    "E-commerce": "التجارة الإلكترونية",
+  };
+
+  return labels[category] ?? category;
+}
+
+function departmentLabel(department: string) {
+  const labels: Record<string, string> = {
+    education: "التعليم",
+    sales: "المبيعات",
+    operations: "العمليات",
+    marketing: "التسويق",
+    hr: "الموارد البشرية",
+    support: "خدمة العملاء",
+    finance: "المالية",
+  };
+
+  return labels[department] ?? department;
+}
+
 function integrationTone(status: IntegrationApp["status"]) {
   if (status === "جاهز") return "green" as const;
   if (status === "مفضل") return "cyan" as const;
@@ -93,12 +131,12 @@ export function TemplateCard({
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-2">
           <div className="flex flex-wrap gap-2">
-            <StatusBadge tone={accessTone(template.access)}>{template.access}</StatusBadge>
+            <StatusBadge tone={accessTone(template.access)}>{accessLabel(template.access)}</StatusBadge>
             <StatusBadge tone={difficultyTone(template.difficulty)}>{template.difficulty}</StatusBadge>
           </div>
           <h3 className="font-heading text-xl font-semibold text-white">{template.title}</h3>
           <p className="text-sm text-[var(--text-soft)]">
-            {template.category} • {template.department}
+            {categoryLabel(template.category)} • {departmentLabel(template.department)}
           </p>
         </div>
         <span className="rounded-full border border-white/10 px-3 py-2 text-xs text-[var(--text-soft)]">{template.estimatedSetupTime}</span>

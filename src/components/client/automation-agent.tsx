@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { GradientButton, GlassCard, SectionHeader, StatusBadge } from "@/components/ui";
 import { generateAutomationBlueprint } from "@/lib/automation-agent";
 import { saveBlueprint } from "@/lib/storage";
-import { formatDate } from "@/lib/utils";
+import { copyTextToClipboard, formatDate } from "@/lib/utils";
 import type { AutomationAgentInput, BlueprintConstraint, Department, Objective } from "@/types";
 
 const departmentOptions: Array<{ value: Department; label: string }> = [
@@ -87,7 +87,7 @@ const steps = [
   "الهدف",
   "العملية الحالية",
   "التطبيقات",
-  "Trigger",
+  "المشغّل",
   "الإجراءات",
   "القيود",
   "المخرجات",
@@ -132,8 +132,8 @@ export function AutomationAgentStudio() {
   }
 
   async function copyText(label: string, text: string) {
-    await navigator.clipboard.writeText(text);
-    setNotice(`تم نسخ ${label}.`);
+    const copied = await copyTextToClipboard(text);
+    setNotice(copied ? `تم نسخ ${label}.` : "تعذر النسخ تلقائيًا على هذا المتصفح.");
   }
 
   function generate() {
@@ -170,12 +170,12 @@ export function AutomationAgentStudio() {
   return (
     <div className="space-y-6">
       <SectionHeader
-        eyebrow="Automation Design Agent"
+        eyebrow="وكيل تصميم الأتمتة"
         title="صمّم الأتمتة مع وكيل استشاري يفهم العملية قبل الأداة"
-        description="هذا الوكيل لا يحتاج API خارجي في هذه المرحلة. هو planner محلي ذكي يحول معلوماتك إلى blueprint تنفيذي، proposal جاهز، وtechnical brief قابل للتسليم أو التطوير."
+        description="هذا الوكيل لا يحتاج API خارجي في هذه المرحلة. هو مخطط محلي ذكي يحول معلوماتك إلى blueprint تنفيذي، proposal جاهز، وtechnical brief قابل للتسليم أو التطوير."
         actions={
           <>
-            <GradientButton onClick={generate}>Generate Blueprint</GradientButton>
+            <GradientButton onClick={generate}>ولّد الـ Blueprint</GradientButton>
             <GradientButton href="/services" variant="secondary">
               اطلب تنفيذ الخطة
             </GradientButton>
@@ -329,21 +329,21 @@ export function AutomationAgentStudio() {
               </div>
 
               <div className="grid gap-2 sm:grid-cols-2">
-                <GradientButton onClick={() => copyText("الـ blueprint", stringifyBlueprint(blueprint))}>Copy Blueprint</GradientButton>
+                <GradientButton onClick={() => copyText("الـ blueprint", stringifyBlueprint(blueprint))}>انسخ الـ Blueprint</GradientButton>
                 <GradientButton onClick={() => copyText("عرض العميل", blueprint.clientProposal)} variant="secondary">
-                  Copy Client Proposal
+                  انسخ عرض العميل
                 </GradientButton>
                 <GradientButton onClick={() => copyText("الملف التقني", blueprint.technicalBrief)} variant="secondary">
-                  Copy Technical Brief
+                  انسخ الملف التقني
                 </GradientButton>
                 <GradientButton onClick={exportJson} variant="ghost">
-                  Export as JSON
+                  صدّر JSON
                 </GradientButton>
                 <GradientButton onClick={save} variant="secondary">
-                  Save locally
+                  احفظ محليًا
                 </GradientButton>
                 <GradientButton onClick={reset} variant="ghost">
-                  Reset
+                  إعادة الضبط
                 </GradientButton>
               </div>
             </div>
@@ -378,33 +378,33 @@ export function AutomationAgentStudio() {
         <GlassCard className="space-y-5">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Blueprint Output</div>
+              <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">مخرجات الخطة</div>
               <h2 className="mt-2 font-heading text-3xl font-semibold text-white">{blueprint.title}</h2>
             </div>
-            <StatusBadge tone="violet">Consultant Mode</StatusBadge>
+            <StatusBadge tone="violet">وضع استشاري</StatusBadge>
           </div>
 
-          <Panel title="Recommended Stack" items={blueprint.recommendedStack} />
-          <Panel title="Why this stack?" items={blueprint.stackReasoning} />
-          <Panel title="Workflow Diagram" items={blueprint.workflowDiagram} />
-          <Panel title="Required Data Fields" items={blueprint.requiredDataFields} />
-          <Panel title="Implementation Plan" items={blueprint.implementationPlan} />
-          <Panel title="Testing Checklist" items={blueprint.testingChecklist} />
-          <Panel title="Error Handling Plan" items={blueprint.errorHandlingPlan} />
-          <Panel title="Privacy & Security" items={blueprint.privacyAndSecurityNotes} />
-          <Panel title="Maintenance Plan" items={blueprint.maintenancePlan} />
-          <Panel title="Upgrade Ideas" items={blueprint.upgradeIdeas} />
+          <Panel title="الـ Stack الموصى به" items={blueprint.recommendedStack} />
+          <Panel title="لماذا هذا الـ Stack؟" items={blueprint.stackReasoning} />
+          <Panel title="مخطط الـ Workflow" items={blueprint.workflowDiagram} />
+          <Panel title="حقول البيانات المطلوبة" items={blueprint.requiredDataFields} />
+          <Panel title="خطة التنفيذ" items={blueprint.implementationPlan} />
+          <Panel title="قائمة التحقق للاختبار" items={blueprint.testingChecklist} />
+          <Panel title="خطة التعامل مع الأخطاء" items={blueprint.errorHandlingPlan} />
+          <Panel title="الخصوصية والأمان" items={blueprint.privacyAndSecurityNotes} />
+          <Panel title="خطة الصيانة" items={blueprint.maintenancePlan} />
+          <Panel title="أفكار التطوير" items={blueprint.upgradeIdeas} />
 
           <div className="grid gap-4 lg:grid-cols-2">
-            <TextBlock title="Copyable Client Proposal" text={blueprint.clientProposal} />
-            <TextBlock title="Copyable Technical Brief" text={blueprint.technicalBrief} />
+            <TextBlock title="عرض عميل قابل للنسخ" text={blueprint.clientProposal} />
+            <TextBlock title="ملف تقني قابل للنسخ" text={blueprint.technicalBrief} />
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2">
-            <TextBlock title="n8n Prompt" text={blueprint.buildPrompts.n8n} />
-            <TextBlock title="Make Prompt" text={blueprint.buildPrompts.make} />
-            <TextBlock title="Zapier Prompt" text={blueprint.buildPrompts.zapier} />
-            <TextBlock title="Python Prompt" text={blueprint.buildPrompts.python} />
+            <TextBlock title="Prompt لـ n8n" text={blueprint.buildPrompts.n8n} />
+            <TextBlock title="Prompt لـ Make" text={blueprint.buildPrompts.make} />
+            <TextBlock title="Prompt لـ Zapier" text={blueprint.buildPrompts.zapier} />
+            <TextBlock title="Prompt لـ Python" text={blueprint.buildPrompts.python} />
           </div>
         </GlassCard>
       </div>
@@ -506,16 +506,16 @@ function stringifyBlueprint(blueprint: ReturnType<typeof generateAutomationBluep
     "",
     blueprint.summary,
     "",
-    "Recommended Stack:",
+    "الـ Stack الموصى به:",
     ...blueprint.recommendedStack.map((item) => `- ${item}`),
     "",
-    "Workflow Diagram:",
+    "مخطط الـ Workflow:",
     ...blueprint.workflowDiagram.map((item) => `- ${item}`),
     "",
-    "Implementation Plan:",
+    "خطة التنفيذ:",
     ...blueprint.implementationPlan.map((item) => `- ${item}`),
     "",
-    "Testing Checklist:",
+    "قائمة التحقق للاختبار:",
     ...blueprint.testingChecklist.map((item) => `- ${item}`),
   ].join("\n");
 }

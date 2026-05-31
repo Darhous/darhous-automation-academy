@@ -60,8 +60,8 @@ export function BuilderLab({ compact = false }: { compact?: boolean }) {
       `Trigger fired: ${activeSample.trigger}`,
       `Nodes validated: ${canvasNodes.length}`,
       `Selected node checked: ${selectedNode.label}`,
-      "Data mapping passed with demo payload.",
-      "Execution finished with status: success",
+      "تمت مراجعة Data mapping بنجاح على payload اختباري.",
+      "انتهى التشغيل التجريبي بحالة نجاح.",
     ]);
   }
 
@@ -73,7 +73,7 @@ export function BuilderLab({ compact = false }: { compact?: boolean }) {
     <div className={`grid gap-6 ${compact ? "xl:grid-cols-[1fr_1fr]" : "xl:grid-cols-[0.82fr_1.28fr_0.9fr]"}`}>
       <GlassCard className="space-y-5">
         <div>
-          <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Node Library</div>
+          <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">مكتبة العقد</div>
           <h3 className="mt-2 font-heading text-xl font-semibold text-white">مكتبة العقد والعينات</h3>
         </div>
 
@@ -97,7 +97,7 @@ export function BuilderLab({ compact = false }: { compact?: boolean }) {
 
         {!compact ? (
           <div className="space-y-3">
-            <div className="text-sm font-semibold text-white">Node Library</div>
+            <div className="text-sm font-semibold text-white">مكتبة العقد</div>
             <div className="grid gap-3">
               {nodeLibrary.map((node) => (
                 <div key={node.label} className="rounded-[20px] border border-white/10 bg-white/5 p-4">
@@ -113,20 +113,20 @@ export function BuilderLab({ compact = false }: { compact?: boolean }) {
         ) : null}
       </GlassCard>
 
-      <GlassCard className="space-y-5">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Workflow Canvas</div>
+        <GlassCard className="space-y-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+            <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">لوحة الـ Workflow</div>
             <h3 className="mt-2 font-heading text-2xl font-semibold text-white">{activeSample.title}</h3>
             <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{activeSample.overview}</p>
           </div>
           <div className="flex gap-2">
             <GradientButton onClick={addLibraryNode} variant="secondary">
-              Add node
+              أضف Node
             </GradientButton>
-            <GradientButton onClick={runTest}>Run test</GradientButton>
+            <GradientButton onClick={runTest}>شغّل الاختبار</GradientButton>
             <GradientButton onClick={resetCanvas} variant="ghost">
-              Reset
+              إعادة الضبط
             </GradientButton>
           </div>
         </div>
@@ -163,16 +163,16 @@ export function BuilderLab({ compact = false }: { compact?: boolean }) {
         </div>
 
         <div className="grid gap-4 lg:grid-cols-2">
-          <InfoPanel title="Required Apps" items={activeSample.requiredApps} />
-          <InfoPanel title="Expected Data" items={activeSample.expectedData} />
-          {!compact ? <InfoPanel title="Possible Errors" items={activeSample.possibleErrors} /> : null}
-          {!compact ? <InfoPanel title="Test Plan" items={activeSample.testPlan} /> : null}
+          <InfoPanel title="التطبيقات المطلوبة" items={activeSample.requiredApps} />
+          <InfoPanel title="البيانات المتوقعة" items={activeSample.expectedData} />
+          {!compact ? <InfoPanel title="الأخطاء المحتملة" items={activeSample.possibleErrors} /> : null}
+          {!compact ? <InfoPanel title="خطة الاختبار" items={activeSample.testPlan} /> : null}
         </div>
       </GlassCard>
 
       <GlassCard className="space-y-5">
         <div>
-          <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Explain this workflow</div>
+          <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">اشرح هذا الـ Workflow</div>
           <h3 className="mt-2 font-heading text-2xl font-semibold text-white">شرح المسار بالعربية</h3>
         </div>
 
@@ -191,7 +191,7 @@ export function BuilderLab({ compact = false }: { compact?: boolean }) {
         </div>
 
         <div className="space-y-3">
-          <div className="font-heading text-lg font-semibold text-white">Logs Panel</div>
+          <div className="font-heading text-lg font-semibold text-white">سجل التنفيذ</div>
           {logs.map((log) => (
             <div key={log} className="rounded-2xl border border-white/8 bg-[rgba(255,255,255,0.03)] px-4 py-3 text-sm text-[var(--text-muted)]">
               {log}

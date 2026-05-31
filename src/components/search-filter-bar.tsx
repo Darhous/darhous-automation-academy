@@ -6,6 +6,7 @@ export function SearchFilterBar({
   search,
   onSearch,
   filters,
+  labels,
   activeFilter,
   onFilterChange,
   placeholder,
@@ -13,6 +14,7 @@ export function SearchFilterBar({
   search: string;
   onSearch: (value: string) => void;
   filters: string[];
+  labels?: Record<string, string>;
   activeFilter: string;
   onFilterChange: (value: string) => void;
   placeholder: string;
@@ -44,7 +46,7 @@ export function SearchFilterBar({
                 : "border-white/10 bg-white/5 text-[var(--text-muted)] hover:border-white/20 hover:text-white"
             }`}
           >
-            {filter}
+            {labels?.[filter] ?? filter}
           </button>
         ))}
       </div>

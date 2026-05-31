@@ -78,7 +78,7 @@ function matchPrompt(prompt: string) {
   };
 }
 
-export function generateWorkflow(prompt: string): GeneratedWorkflow {
+export function generateWorkflow(prompt: string, savedAt = new Date().toISOString()): GeneratedWorkflow {
   const scenario = matchPrompt(prompt);
   const matchedTemplate = automationTemplates.find((template) => template.id === scenario.templateId) ?? automationTemplates[0];
   const technicalContext = `اعتمد على ${scenario.recommendedTools.join("، ")} ونفّذ الخطوات: ${scenario.setupSteps.join(" -> ")}`;
@@ -101,6 +101,6 @@ export function generateWorkflow(prompt: string): GeneratedWorkflow {
       zapier: `صمّم Zapier workflow لهذا السيناريو: ${scenario.title}. ${technicalContext}. اذكر متى يصبح Zapier غير مناسب.`,
       python: `اكتب technical plan بلغة Python لهذا السيناريو: ${scenario.title}. ${technicalContext}. اذكر libraries ونقاط التحقق.`,
     },
-    savedAt: new Date().toISOString(),
+    savedAt,
   };
 }

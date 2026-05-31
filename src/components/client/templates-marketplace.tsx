@@ -6,11 +6,42 @@ import { SearchFilterBar } from "@/components/search-filter-bar";
 import { EmptyState, GlassCard, GradientButton, StatusBadge } from "@/components/ui";
 import { automationTemplates } from "@/data/automationTemplates";
 import { saveTemplate } from "@/lib/storage";
+import { copyTextToClipboard } from "@/lib/utils";
 
 const categoryFilters = ["الكل", ...Array.from(new Set(automationTemplates.map((template) => template.category)))];
 const departmentFilters = ["الكل", ...Array.from(new Set(automationTemplates.map((template) => template.department)))];
 const accessFilters = ["الكل", "Free", "Pro", "Service-ready"];
 const difficultyFilters = ["الكل", "مبتدئ", "متوسط", "متقدم"];
+
+const categoryLabels: Record<string, string> = {
+  Education: "التعليم",
+  Sales: "المبيعات",
+  AI: "الذكاء الاصطناعي",
+  Finance: "المالية",
+  Marketing: "التسويق",
+  HR: "الموارد البشرية",
+  Support: "خدمة العملاء",
+  Operations: "العمليات",
+  Clinics: "العيادات",
+  "Real Estate": "العقارات",
+  "E-commerce": "التجارة الإلكترونية",
+};
+
+const departmentLabels: Record<string, string> = {
+  education: "التعليم",
+  sales: "المبيعات",
+  operations: "العمليات",
+  marketing: "التسويق",
+  hr: "الموارد البشرية",
+  support: "خدمة العملاء",
+  finance: "المالية",
+};
+
+const accessLabels: Record<string, string> = {
+  Free: "مجاني",
+  Pro: "احترافي",
+  "Service-ready": "جاهز للخدمة",
+};
 
 export function TemplatesMarketplace({ compact = false }: { compact?: boolean }) {
   const [activeCategory, setActiveCategory] = useState("الكل");
@@ -57,14 +88,14 @@ export function TemplatesMarketplace({ compact = false }: { compact?: boolean })
       `الملخص: ${selected.workflowSummary}`,
       `Trigger: ${selected.trigger}`,
       "",
-      "Setup Steps:",
+      "خطوات الإعداد:",
       ...selected.setupSteps.map((item) => `- ${item}`),
       "",
-      "Testing Checklist:",
+      "قائمة التحقق للاختبار:",
       ...selected.testingChecklist.map((item) => `- ${item}`),
     ].join("\n");
-    await navigator.clipboard.writeText(text);
-    setNotice("تم نسخ خطة التنفيذ.");
+    const copied = await copyTextToClipboard(text);
+    setNotice(copied ? "تم نسخ خطة التنفيذ." : "تعذر النسخ تلقائيًا على هذا المتصفح.");
   }
 
   function handleUseTemplate(id: string) {
@@ -78,6 +109,7 @@ export function TemplatesMarketplace({ compact = false }: { compact?: boolean })
         search={search}
         onSearch={setSearch}
         filters={categoryFilters}
+        labels={categoryLabels}
         activeFilter={activeCategory}
         onFilterChange={setActiveCategory}
         placeholder="ابحث عن قالب أو أداة أو مشكلة تشغيلية"
@@ -85,9 +117,9 @@ export function TemplatesMarketplace({ compact = false }: { compact?: boolean })
 
       {!compact ? (
         <div className="grid gap-3 md:grid-cols-3">
-          <InlineFilter title="القسم" options={departmentFilters} value={activeDepartment} onChange={setActiveDepartment} />
+          <InlineFilter title="القسم" options={departmentFilters} value={activeDepartment} onChange={setActiveDepartment} labels={departmentLabels} />
           <InlineFilter title="مستوى الصعوبة" options={difficultyFilters} value={activeDifficulty} onChange={setActiveDifficulty} />
-          <InlineFilter title="نوع الوصول" options={accessFilters} value={activeAccess} onChange={setActiveAccess} />
+          <InlineFilter title="نوع الوصول" options={accessFilters} value={activeAccess} onChange={setActiveAccess} labels={accessLabels} />
         </div>
       ) : null}
 
@@ -107,10 +139,10 @@ export function TemplatesMarketplace({ compact = false }: { compact?: boolean })
                   action={
                     <div className="grid gap-2 sm:grid-cols-2">
                       <GradientButton onClick={() => handleUseTemplate(template.id)} className="w-full">
-                        Use Template
+                        استخدم القالب
                       </GradientButton>
                       <GradientButton onClick={() => setSelectedId(template.id)} variant="secondary" className="w-full">
-                        View Workflow
+                        عرض الـ Workflow
                       </GradientButton>
                     </div>
                   }
@@ -123,12 +155,12 @@ export function TemplatesMarketplace({ compact = false }: { compact?: boolean })
             <GlassCard className="sticky top-28 h-fit space-y-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">Workflow Preview</div>
+                  <div className="font-display text-xs uppercase tracking-[0.24em] text-[var(--cyan)]/75">معاينة القالب</div>
                   <h3 className="mt-2 font-heading text-2xl font-semibold text-white">{selected.title}</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <StatusBadge tone={selected.access === "Service-ready" ? "gold" : selected.access === "Pro" ? "violet" : "green"}>
-                    {selected.access}
+                    {accessLabels[selected.access] ?? selected.access}
                   </StatusBadge>
                   <StatusBadge tone={selected.difficulty === "متقدم" ? "gold" : selected.difficulty === "متوسط" ? "cyan" : "green"}>
                     {selected.difficulty}
@@ -139,29 +171,29 @@ export function TemplatesMarketplace({ compact = false }: { compact?: boolean })
               <p className="text-sm leading-7 text-[var(--text-muted)]">{selected.workflowSummary}</p>
 
               <div className="grid gap-3 sm:grid-cols-2">
-                <MiniStat label="Category" value={selected.category} />
-                <MiniStat label="Department" value={selected.department} />
-                <MiniStat label="Setup Time" value={selected.estimatedSetupTime} />
-                <MiniStat label="Tools" value={`${selected.requiredTools.length}`} />
+                <MiniStat label="الفئة" value={categoryLabels[selected.category] ?? selected.category} />
+                <MiniStat label="القسم" value={departmentLabels[selected.department] ?? selected.department} />
+                <MiniStat label="زمن الإعداد" value={selected.estimatedSetupTime} />
+                <MiniStat label="عدد الأدوات" value={`${selected.requiredTools.length}`} />
               </div>
 
-              <SectionBlock title="Required Tools" items={selected.requiredTools} />
-              <SectionBlock title="Setup Steps" items={selected.setupSteps} />
-              <SectionBlock title="Input Fields" items={selected.inputFields} />
-              <SectionBlock title="Testing Checklist" items={selected.testingChecklist} />
-              <SectionBlock title="Risks" items={selected.risks} />
-              <SectionBlock title="Upgrade Ideas" items={selected.upgradeIdeas} />
+              <SectionBlock title="الأدوات المطلوبة" items={selected.requiredTools} />
+              <SectionBlock title="خطوات الإعداد" items={selected.setupSteps} />
+              <SectionBlock title="حقول الإدخال" items={selected.inputFields} />
+              <SectionBlock title="Checklist الاختبار" items={selected.testingChecklist} />
+              <SectionBlock title="المخاطر" items={selected.risks} />
+              <SectionBlock title="أفكار التطوير" items={selected.upgradeIdeas} />
 
               <div className="rounded-[24px] border border-[rgba(244,198,114,0.24)] bg-[rgba(244,198,114,0.08)] p-4 text-sm leading-7 text-[var(--gold)]">
-                <span className="font-semibold text-white">Output:</span> {selected.output}
+                <span className="font-semibold text-white">المخرج النهائي:</span> {selected.output}
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
                 <GradientButton onClick={() => handleUseTemplate(selected.id)} className="w-full">
-                  Use Template
+                  استخدم القالب
                 </GradientButton>
                 <GradientButton onClick={copyImplementationPlan} variant="secondary" className="w-full">
-                  Copy Implementation Plan
+                  انسخ خطة التنفيذ
                 </GradientButton>
               </div>
             </GlassCard>
@@ -179,18 +211,20 @@ function InlineFilter({
   options,
   value,
   onChange,
+  labels,
 }: {
   title: string;
   options: string[];
   value: string;
   onChange: (value: string) => void;
+  labels?: Record<string, string>;
 }) {
   return (
     <label className="rounded-[22px] border border-white/10 bg-white/5 p-4">
       <div className="mb-2 text-sm text-[var(--text-muted)]">{title}</div>
       <select value={value} onChange={(event) => onChange(event.target.value)} className={fieldClassName}>
         {options.map((option) => (
-          <option key={option}>{option}</option>
+          <option key={option}>{labels?.[option] ?? option}</option>
         ))}
       </select>
     </label>

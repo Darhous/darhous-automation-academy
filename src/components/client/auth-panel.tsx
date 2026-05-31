@@ -34,7 +34,7 @@ export function AuthPanel({ mode }: { mode: "login" | "register" }) {
           <GlassCard className="space-y-5">
             <div className="grid gap-4 md:grid-cols-2">
               <Field label="الاسم الكامل">
-                <input className={fieldClassName} placeholder="Ahmed Darhous" />
+                <input className={fieldClassName} placeholder="مثال: أحمد محمد" />
               </Field>
               <Field label="البريد الإلكتروني">
                 <input className={fieldClassName} type="email" placeholder="name@example.com" />

@@ -7,10 +7,34 @@ import { GlassCard, GradientButton, StatusBadge } from "@/components/ui";
 import { automationChecklists } from "@/data/automationChecklists";
 import { automationComparisons } from "@/data/automationComparisons";
 import { automationToolsDirectory } from "@/data/automationTools";
+import { copyTextToClipboard } from "@/lib/utils";
 
 const categories = ["الكل", ...Array.from(new Set(automationToolsDirectory.map((tool) => tool.category)))];
-const toolTabs = ["الدليل", "ROI Calculator", "Complexity Estimator", "Stack Advisor", "Webhook Explainer", "Checklist Generator", "Proposal Generator"] as const;
+const toolTabs = ["الدليل", "حاسبة ROI", "تقدير التعقيد", "مستشار الـ Stack", "شرح الـ Webhook", "مولد الـ Checklists", "مولد الـ Proposal"] as const;
 type ToolTab = (typeof toolTabs)[number];
+
+const categoryLabels: Record<string, string> = {
+  spreadsheet: "الجداول",
+  workspace: "مساحات العمل",
+  "data platform": "منصات البيانات",
+  "enterprise automation": "أتمتة المؤسسات",
+  "app automation": "أتمتة التطبيقات",
+  "visual automation": "الأتمتة البصرية",
+  "workflow automation": "أتمتة الـ Workflows",
+  crm: "إدارة العملاء",
+  "project management": "إدارة المشاريع",
+  "project tracking": "متابعة المشاريع",
+  scheduling: "الجدولة",
+  communication: "التواصل",
+  collaboration: "التعاون",
+  "browser automation": "أتمتة المتصفح",
+  "code automation": "الأتمتة البرمجية",
+  scripting: "البرمجة النصية",
+  "open-source data": "بيانات مفتوحة المصدر",
+  "internal apps": "تطبيقات داخلية",
+  backend: "الخدمات الخلفية",
+  messaging: "المراسلة",
+};
 
 export function ToolsExplorer() {
   const [activeTab, setActiveTab] = useState<ToolTab>("الدليل");
@@ -147,9 +171,10 @@ export function ToolsExplorer() {
             search={search}
             onSearch={setSearch}
             filters={categories}
+            labels={categoryLabels}
             activeFilter={activeFilter}
             onFilterChange={setActiveFilter}
-            placeholder="ابحث عن أداة أو use case أو learning path"
+            placeholder="ابحث عن أداة أو حالة استخدام أو مسار تعلم"
           />
 
           <div className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
@@ -171,7 +196,7 @@ export function ToolsExplorer() {
               <GlassCard className="space-y-4">
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="font-heading text-xl font-semibold text-white">مقارنات سريعة</h3>
-                  <StatusBadge tone="cyan">Decision aid</StatusBadge>
+                  <StatusBadge tone="cyan">أداة قرار</StatusBadge>
                 </div>
                 {automationComparisons.map((comparison) => (
                   <div key={comparison.id} className="rounded-[22px] border border-white/10 bg-white/5 p-4">
@@ -193,10 +218,10 @@ export function ToolsExplorer() {
         </div>
       ) : null}
 
-      {activeTab === "ROI Calculator" ? (
+      {activeTab === "حاسبة ROI" ? (
         <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
           <GlassCard className="space-y-4">
-            <h3 className="font-heading text-2xl font-semibold text-white">Automation ROI Calculator</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">حاسبة العائد من الأتمتة</h3>
             <RangeField label="عدد مرات المهمة أسبوعيًا" value={roi.frequency} min={1} max={200} onChange={(value) => setRoi((current) => ({ ...current, frequency: value }))} />
             <RangeField label="عدد الدقائق لكل مرة" value={roi.minutes} min={5} max={120} onChange={(value) => setRoi((current) => ({ ...current, minutes: value }))} />
             <RangeField label="عدد الأشخاص المشاركين" value={roi.employees} min={1} max={20} onChange={(value) => setRoi((current) => ({ ...current, employees: value }))} />
@@ -217,10 +242,10 @@ export function ToolsExplorer() {
         </div>
       ) : null}
 
-      {activeTab === "Complexity Estimator" ? (
+      {activeTab === "تقدير التعقيد" ? (
         <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
           <GlassCard className="space-y-4">
-            <h3 className="font-heading text-2xl font-semibold text-white">Workflow Complexity Estimator</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">مقدّر تعقيد الـ Workflow</h3>
             <RangeField label="عدد التطبيقات" value={complexity.apps} min={1} max={15} onChange={(value) => setComplexity((current) => ({ ...current, apps: value }))} />
             <RangeField label="عدد الخطوات" value={complexity.steps} min={2} max={30} onChange={(value) => setComplexity((current) => ({ ...current, steps: value }))} />
             <RangeField label="عدد الفروع الشرطية" value={complexity.branches} min={0} max={10} onChange={(value) => setComplexity((current) => ({ ...current, branches: value }))} />
@@ -231,7 +256,7 @@ export function ToolsExplorer() {
             <h3 className="font-heading text-2xl font-semibold text-white">نتيجة التعقيد</h3>
             <StatGrid
               items={[
-                { label: "Complexity Score", value: `${complexityOutput.score}` },
+                { label: "درجة التعقيد", value: `${complexityOutput.score}` },
                 { label: "المنصة الموصى بها", value: complexityOutput.recommendedPlatform },
                 { label: "مستوى المخاطر", value: complexityOutput.riskLevel },
                 { label: "عمق الاختبار", value: complexityOutput.testingDepth },
@@ -241,10 +266,10 @@ export function ToolsExplorer() {
         </div>
       ) : null}
 
-      {activeTab === "Stack Advisor" ? (
+      {activeTab === "مستشار الـ Stack" ? (
         <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
           <GlassCard className="space-y-4">
-            <h3 className="font-heading text-2xl font-semibold text-white">Stack Advisor</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">مستشار الـ Stack</h3>
             <TextField label="مستوى المستخدم" value={advisor.skill} onChange={(value) => setAdvisor((current) => ({ ...current, skill: value }))} />
             <TextField label="الميزانية" value={advisor.budget} onChange={(value) => setAdvisor((current) => ({ ...current, budget: value }))} />
             <TextField label="حساسية الخصوصية" value={advisor.privacy} onChange={(value) => setAdvisor((current) => ({ ...current, privacy: value }))} />
@@ -253,17 +278,17 @@ export function ToolsExplorer() {
           </GlassCard>
           <GlassCard className="space-y-4">
             <h3 className="font-heading text-2xl font-semibold text-white">التوصية</h3>
-            <InfoPanel title="Recommended Tools" text={advisorOutput.recommended} />
-            <InfoPanel title="Why" text={advisorOutput.why} />
-            <InfoPanel title="Avoid" text={advisorOutput.avoid} />
+            <InfoPanel title="الأدوات الموصى بها" text={advisorOutput.recommended} />
+            <InfoPanel title="سبب الاختيار" text={advisorOutput.why} />
+            <InfoPanel title="ما الذي يُفضّل تجنبه" text={advisorOutput.avoid} />
           </GlassCard>
         </div>
       ) : null}
 
-      {activeTab === "Webhook Explainer" ? (
+      {activeTab === "شرح الـ Webhook" ? (
         <GlassCard className="space-y-5">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-heading text-2xl font-semibold text-white">Webhook Explainer</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">شرح الـ Webhook</h3>
             <StatusBadge tone="violet">تعليمي تفاعلي</StatusBadge>
           </div>
           <p className="text-sm leading-7 text-[var(--text-muted)]">
@@ -285,28 +310,28 @@ export function ToolsExplorer() {
         </GlassCard>
       ) : null}
 
-      {activeTab === "Checklist Generator" ? (
+      {activeTab === "مولد الـ Checklists" ? (
         <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
           <GlassCard className="space-y-4">
-            <h3 className="font-heading text-2xl font-semibold text-white">Automation Checklist Generator</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">مولد قوائم التحقق</h3>
             <TextField label="نوع المشروع" value={checklist.projectType} onChange={(value) => setChecklist((current) => ({ ...current, projectType: value }))} />
             <TextField label="الأدوات" value={checklist.tools} onChange={(value) => setChecklist((current) => ({ ...current, tools: value }))} />
             <TextField label="حساسية البيانات" value={checklist.sensitivity} onChange={(value) => setChecklist((current) => ({ ...current, sensitivity: value }))} />
           </GlassCard>
           <div className="space-y-4">
-            <ChecklistPanel title="Discovery Checklist" items={checklistOutput.discovery} />
-            <ChecklistPanel title="Build Checklist" items={checklistOutput.build} />
-            <ChecklistPanel title="QA Checklist" items={checklistOutput.qa} />
-            <ChecklistPanel title="Launch Checklist" items={checklistOutput.launch} />
-            <ChecklistPanel title="Maintenance Checklist" items={checklistOutput.maintenance} />
+            <ChecklistPanel title="قائمة الاكتشاف" items={checklistOutput.discovery} />
+            <ChecklistPanel title="قائمة البناء" items={checklistOutput.build} />
+            <ChecklistPanel title="قائمة QA" items={checklistOutput.qa} />
+            <ChecklistPanel title="قائمة الإطلاق" items={checklistOutput.launch} />
+            <ChecklistPanel title="قائمة الصيانة" items={checklistOutput.maintenance} />
           </div>
         </div>
       ) : null}
 
-      {activeTab === "Proposal Generator" ? (
+      {activeTab === "مولد الـ Proposal" ? (
         <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
           <GlassCard className="space-y-4">
-            <h3 className="font-heading text-2xl font-semibold text-white">Client Proposal Generator</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">مولد عرض العميل</h3>
             <TextField label="نوع العميل" value={proposal.business} onChange={(value) => setProposal((current) => ({ ...current, business: value }))} />
             <TextField label="المشكلة" value={proposal.problem} onChange={(value) => setProposal((current) => ({ ...current, problem: value }))} />
             <TextField label="الـ workflow المقترح" value={proposal.workflow} onChange={(value) => setProposal((current) => ({ ...current, workflow: value }))} />
@@ -316,8 +341,13 @@ export function ToolsExplorer() {
           <GlassCard className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <h3 className="font-heading text-2xl font-semibold text-white">الاقتراح المولد</h3>
-              <GradientButton onClick={() => navigator.clipboard.writeText(proposalOutput)} variant="secondary">
-                Copy Proposal
+              <GradientButton
+                onClick={async () => {
+                  await copyTextToClipboard(proposalOutput);
+                }}
+                variant="secondary"
+              >
+                انسخ الـ Proposal
               </GradientButton>
             </div>
             <p className="whitespace-pre-line text-sm leading-8 text-[var(--text-muted)]">{proposalOutput}</p>

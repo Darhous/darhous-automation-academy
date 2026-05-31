@@ -33,7 +33,7 @@ export default function ContactPage() {
             </Link>
           </GlassCard>
           <GlassCard className="space-y-3">
-            <h3 className="font-heading text-xl font-semibold text-white">Automation Agent</h3>
+            <h3 className="font-heading text-xl font-semibold text-white">وكيل الأتمتة</h3>
             <Link href="/automation-agent" className="text-[var(--cyan)]">
               ابدأ من blueprint استشاري
             </Link>

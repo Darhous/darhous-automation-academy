@@ -9,9 +9,9 @@ export default function ToolsPage() {
     <div className="section-shell">
       <div className="section-inner space-y-6">
         <SectionHeader
-          eyebrow="Tools Directory"
+          eyebrow="دليل الأدوات"
           title="Tools Hub لاتخاذ القرار قبل التنفيذ"
-          description="هذه الصفحة تجمع directory حي للأدوات مع ROI calculator وcomplexity estimator وstack advisor وchecklist generator وproposal generator."
+          description="هذه الصفحة تجمع دليلًا حيًا للأدوات مع حاسبة ROI، ومقدّر التعقيد، ومستشار الـ Stack، ومولد الـ Checklists، ومولد الـ Proposal."
         />
         <ToolsExplorer />
       </div>

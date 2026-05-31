@@ -40,7 +40,7 @@ export function DashboardView() {
   const stats = [
     { id: "paths", label: "المسارات الملتحق بها", value: `${enrolledPaths.length}`, trend: "منهج واضح ومتدرج" },
     { id: "templates", label: "القوالب المحفوظة", value: `${savedTemplates.length}`, trend: "تظهر من سوق القوالب مباشرة" },
-    { id: "blueprints", label: "الـ blueprints المحفوظة", value: `${blueprints.length}`, trend: "ناتجة من Automation Agent" },
+    { id: "blueprints", label: "الـ blueprints المحفوظة", value: `${blueprints.length}`, trend: "ناتجة من وكيل الأتمتة" },
     { id: "labs", label: "المعامل المكتملة", value: `${completedLabs.length}`, trend: "جاهزة للتطبيق العملي" },
   ];
 
@@ -56,14 +56,14 @@ export function DashboardView() {
         <GlassCard className="space-y-5">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <StatusBadge tone="cyan">Demo user profile</StatusBadge>
+              <StatusBadge tone="cyan">ملف مستخدم تجريبي</StatusBadge>
               <h2 className="mt-3 font-heading text-2xl font-semibold text-white">أحمد - Automation Strategist</h2>
               <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
                 هذه اللوحة تجمع التعلّم، القوالب، الـ blueprints، الـ workflows، وطلبات الخدمة في مكان واحد، مع بنية جاهزة للربط لاحقًا بالحساب المشترك داخل منظومة Darhous.
               </p>
             </div>
             <div className="rounded-[24px] border border-[rgba(87,225,255,0.24)] bg-[rgba(87,225,255,0.08)] p-4 text-right">
-              <div className="text-sm text-[var(--text-soft)]">Automation Maturity Score</div>
+              <div className="text-sm text-[var(--text-soft)]">درجة نضج الأتمتة</div>
               <div className="mt-2 font-display text-4xl font-bold text-white">{maturityScore}%</div>
               <div className="mt-2 text-xs text-[var(--cyan)]">جاهزية جيدة للانتقال من التجريب إلى التكرار المنضبط.</div>
             </div>
@@ -71,20 +71,20 @@ export function DashboardView() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <InfoBox title="المسار النشط" value={enrolledPaths[0].title} hint={enrolledPaths[0].subtitle} />
-            <InfoBox title="الإجراء التالي الموصى به" value="ابدأ من Automation Agent" hint="صمّم blueprint ثم انقله إلى builder أو التنفيذ." />
-            <InfoBox title="اقتراح ذكي" value="حوّل lead follow-up إلى خدمة فعلية" hint="أنت تملك قوالب ومولدًا ومسارًا مناسبًا لذلك." />
-            <InfoBox title="الشهادات" value="Foundation for future shared certificates" hint="سيتم ربطها لاحقًا مع السجل الموحد." />
+            <InfoBox title="الإجراء التالي الموصى به" value="ابدأ من وكيل الأتمتة" hint="صمّم blueprint ثم انقله إلى builder أو التنفيذ." />
+            <InfoBox title="اقتراح ذكي" value="حوّل متابعة الـ leads إلى خدمة فعلية" hint="أنت تملك قوالب ومولدًا ومسارًا مناسبًا لذلك." />
+            <InfoBox title="الشهادات" value="جاهزة للربط مع الشهادات المشتركة" hint="سيتم ربطها لاحقًا مع السجل الموحد." />
           </div>
         </GlassCard>
 
         <GlassCard className="space-y-4">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-heading text-2xl font-semibold text-white">Quick Links</h3>
-            <StatusBadge tone="violet">Action Center</StatusBadge>
+            <h3 className="font-heading text-2xl font-semibold text-white">روابط سريعة</h3>
+            <StatusBadge tone="violet">مركز الإجراءات</StatusBadge>
           </div>
           <div className="grid gap-3">
             {[
-              { href: "/automation-agent", label: "افتح Automation Agent" },
+              { href: "/automation-agent", label: "افتح وكيل الأتمتة" },
               { href: "/templates", label: "استكشف القوالب" },
               { href: "/generator", label: "ولّد خطة جديدة" },
               { href: "/builder", label: "راجع Workflow في المعمل" },
@@ -104,7 +104,7 @@ export function DashboardView() {
       <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <GlassCard className="space-y-5">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-heading text-2xl font-semibold text-white">Saved Templates</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">القوالب المحفوظة</h3>
             <StatusBadge tone="gold">{savedTemplates.length}</StatusBadge>
           </div>
           {savedTemplates.length ? (
@@ -128,7 +128,7 @@ export function DashboardView() {
 
         <GlassCard className="space-y-5">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-heading text-2xl font-semibold text-white">Generated Workflows</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">الـ Workflows المولدة</h3>
             <StatusBadge tone="cyan">{workflows.length}</StatusBadge>
           </div>
           {workflows.length ? (
@@ -159,7 +159,7 @@ export function DashboardView() {
       <div className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
         <GlassCard className="space-y-5">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-heading text-2xl font-semibold text-white">Generated Blueprints</h3>
+            <h3 className="font-heading text-2xl font-semibold text-white">الـ Blueprints المولدة</h3>
             <StatusBadge tone="violet">{blueprints.length}</StatusBadge>
           </div>
           {blueprints.length ? (
@@ -172,16 +172,16 @@ export function DashboardView() {
                   </StatusBadge>
                 </div>
                 <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{blueprint.summary}</p>
-                <div className="mt-3 text-xs text-[var(--text-soft)]">Stack: {blueprint.recommendedStack.join("، ")}</div>
+                <div className="mt-3 text-xs text-[var(--text-soft)]">الـ Stack: {blueprint.recommendedStack.join("، ")}</div>
               </div>
             ))
           ) : (
-            <EmptyState title="لا توجد blueprints محفوظة" description="صفحة Automation Agent تحفظ المخططات هنا لتكمل عليها في أي وقت." />
+            <EmptyState title="لا توجد blueprints محفوظة" description="صفحة وكيل الأتمتة تحفظ المخططات هنا لتكمل عليها في أي وقت." />
           )}
         </GlassCard>
 
         <GlassCard className="space-y-5">
-          <h3 className="font-heading text-2xl font-semibold text-white">Recent Activity & Learning Progress</h3>
+          <h3 className="font-heading text-2xl font-semibold text-white">النشاط الأخير وتقدم التعلم</h3>
           <div className="grid gap-4 md:grid-cols-2">
             {enrolledPaths.map((path) => (
               <div key={path.id} className="rounded-[24px] border border-white/10 bg-white/5 p-4">
@@ -195,7 +195,7 @@ export function DashboardView() {
           </div>
 
           <div className="rounded-[24px] border border-white/10 bg-white/5 p-4">
-            <div className="font-heading text-lg font-semibold text-white">Completed Labs</div>
+            <div className="font-heading text-lg font-semibold text-white">المعامل المكتملة</div>
             <div className="mt-3 space-y-2">
               {completedLabs.map((lab) => (
                 <div key={lab.id} className="rounded-2xl border border-white/8 bg-[rgba(255,255,255,0.03)] px-4 py-3 text-sm text-[var(--text-muted)]">
@@ -206,7 +206,7 @@ export function DashboardView() {
           </div>
 
           <div className="rounded-[24px] border border-white/10 bg-white/5 p-4">
-            <div className="font-heading text-lg font-semibold text-white">Service Requests</div>
+            <div className="font-heading text-lg font-semibold text-white">طلبات الخدمة</div>
             <div className="mt-3 space-y-2">
               {requests.length ? (
                 requests.map((request) => (

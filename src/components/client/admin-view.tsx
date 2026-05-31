@@ -86,7 +86,7 @@ export function AdminView() {
 
       <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <GlassCard className="space-y-5">
-          <h2 className="font-heading text-2xl font-semibold text-white">Service Requests Inbox</h2>
+          <h2 className="font-heading text-2xl font-semibold text-white">صندوق طلبات الخدمة</h2>
           {requests.length ? (
             <div className="grid gap-4">
               {requests.map((request) => (
@@ -108,7 +108,7 @@ export function AdminView() {
         </GlassCard>
 
         <GlassCard className="space-y-5">
-          <h2 className="font-heading text-2xl font-semibold text-white">Generated Blueprints & Workflows</h2>
+          <h2 className="font-heading text-2xl font-semibold text-white">الـ Blueprints والـ Workflows المولدة</h2>
           <div className="space-y-3">
             {blueprints.length ? (
               blueprints.map((blueprint) => (
